@@ -29,7 +29,6 @@ class TodoListTitle extends React.Component {
     };
 
     render = () => {
-
         return (
             <div>
                 {this.state.editMode

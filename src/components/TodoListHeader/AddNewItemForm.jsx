@@ -33,12 +33,6 @@ class AddNewItemForm extends React.Component {
         }
     };
 
-    onInputBorderChange = () => {
-        this.setState({
-            error: true
-        })
-    };
-
     onPressEnter = (e) => {
         if (e.key === 'Enter') {
             this.onAddNewItemTitle();
@@ -52,8 +46,6 @@ class AddNewItemForm extends React.Component {
                 <div className="todoList-newTaskForm">
                     <input type="text" placeholder="New item name"
                            className={errorInput}
-                        // onChange={(e) => {this.onInputBorderChange();
-                        //     this.onInputTextChange(e)}}
                            onChange={this.onInputTextChange}
                            onKeyPress={this.onPressEnter}
                            value={this.state.title}/>

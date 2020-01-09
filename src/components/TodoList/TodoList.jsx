@@ -11,7 +11,6 @@ import {
     deleteTask,
     deleteTodolist, setTasks
 } from "../../redux/reducer";
-import axios from "axios";
 import {api} from "../../dal/api";
 
 class TodoList extends React.Component {
@@ -87,7 +86,7 @@ class TodoList extends React.Component {
 
     deleteTask = (taskId) => {
         api.deleteTask(taskId)
-            .then(res => {
+            .then( res => {
                 this.props.deleteTask(this.props.id, taskId);
             });
     };
@@ -107,40 +106,41 @@ class TodoList extends React.Component {
             <div className="App">
                 <div className="todoList">
                     <div className="todoList-header">
-                        <div className='todoList-title'>
+                        <div className='todoListTitle'>
                             <TodoListTitle title={this.props.title} changeTodolist={this.changeTodolist}/>
                             <button onClick={() => {
                                 this.deleteTodolist()
                             }} className='todoListDeleteButton'>X
                             </button>
                         </div>
+                    </div>
+                    <div className='todoListContent'>
+                        <TodoListTasks changeIsDoneStatus={this.changeIsDoneStatus}
+                                       changeTitle={this.changeTitle}
+                                       changeTask={this.changeTask}
+                                       deleteTask={this.deleteTask}
+                                       tasks={tasks.filter(t => {
+                                           if (this.state.filterValue === 'All') {
+                                               return 2;
+                                           } else if (this.state.filterValue === 'Active') {
+                                               return t.status === 0;
+                                           } else {
+                                               return t.status === 2;
+                                           }
+                                           /*switch (this.state.filterValue){
+                                               case 'All':
+                                                   return true;
+                                               case 'Active':
+                                                   return t.isDone === false;
+                                               case 'Completed':
+                                                   return t.isDone === true;
+                                               default:
+                                                   return false;
+                                                   break;
+                                           }*/
+                                       })}/>
                         <AddNewItemForm addNewTitle={this.addTask}/>
                     </div>
-                    <TodoListTasks changeIsDoneStatus={this.changeIsDoneStatus}
-                                   changeTitle={this.changeTitle}
-                                   changeTask={this.changeTask}
-                                   deleteTask={this.deleteTask}
-                        // tasks={this.props.tasks.filter(t => {
-                                   tasks={tasks.filter(t => {
-                                       if (this.state.filterValue === 'All') {
-                                           return 2;
-                                       } else if (this.state.filterValue === 'Active') {
-                                           return t.status === 0;
-                                       } else {
-                                           return t.status === 2;
-                                       }
-                                       /*switch (this.state.filterValue){
-                                           case 'All':
-                                               return true;
-                                           case 'Active':
-                                               return t.isDone === false;
-                                           case 'Completed':
-                                               return t.isDone === true;
-                                           default:
-                                               return false;
-                                               break;
-                                       }*/
-                                   })}/>
                     <TodoListFooter changeFilter={this.changeFilter} filterValue={this.state.filterValue}/>
                 </div>
             </div>

@@ -4,7 +4,6 @@ import TodoList from "./components/TodoList/TodoList";
 import AddNewItemForm from "./components/TodoListHeader/AddNewItemForm";
 import {connect} from 'react-redux';
 import {addTodolist, setTodolist} from "./redux/reducer";
-import axios from "axios";
 import {api} from "./dal/api";
 
 class App extends React.Component {
@@ -60,14 +59,14 @@ class App extends React.Component {
         });
 
         return (
-            <>
+            <div className='appWrapper'>
                 <div>
                     <AddNewItemForm addNewTitle={this.addTodolist}/>
                 </div>
                 <div className="App">
                     {todolists}
                 </div>
-            </>
+            </div>
         );
     }
 }
