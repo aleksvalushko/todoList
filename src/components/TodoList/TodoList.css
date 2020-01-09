@@ -1,0 +1,20 @@
+.todoList {
+    width: 250px;
+    margin: 0 auto;
+    padding-top: 10%;
+}
+
+.todoList > div {
+    padding: 10px;
+}
+
+.todoList-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10%;
+}
+
+.todoListDeleteButton{
+    font-weight: 700;
+}

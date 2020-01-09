@@ -1,0 +1,10 @@
+.App {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.error {
+  border-color: red;
+}
