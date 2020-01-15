@@ -1,5 +1,6 @@
 import React from 'react';
 import './TodoListTask.css';
+import basket from '../../images/basket.svg';
 
 class TodoListTask extends React.Component {
 
@@ -39,8 +40,8 @@ class TodoListTask extends React.Component {
     };
 
     render = () => {
-        let toDoListDoneClass = this.props.task.status ? `${'todoListTask'} ${'done'}` : 'todoListTask';
 
+        let toDoListDoneClass = this.props.task.status ? `${'done'}` : '';
         /*let priorityTitle = '';
         switch(this.props.task.priority){
             case 0: priorityTitle = "Low"; break;
@@ -51,17 +52,20 @@ class TodoListTask extends React.Component {
         }*/
 
         return (
-            <div className={toDoListDoneClass}>
-                <input type="checkbox" checked={this.props.task.status === 2} onChange={this.onIsDoneChanged}/>
+            <div className='todoListTask'>
+                {/*<div className='toDoListCheck'>*/}
+                    <input type="checkbox" id='check' checked={this.props.task.status === 2} onChange={this.onIsDoneChanged}/>
+                    {/*<label htmlFor="check"></label>*/}
+                {/*</div>*/}
                 <div className='todoListTaskItem'>
                     <div>
                         {this.state.editMode
                             ? <input onBlur={this.deactiveEditMode} onChange={this.onTitleChanged}
                                      autoFocus={true} value={this.state.title}/>
-                            : <span onClick={this.activateEditMode} >{this.props.task.title}
+                            : <span onClick={this.activateEditMode} className={toDoListDoneClass}>{this.props.task.title}
                                 {/*; priority: {priorityTitle}*/}</span>}
                     </div>
-                    <button className='todoListTaskDelete' onClick={this.onDeleteTask}>X</button>
+                    <button className='todoListTaskDelete' onClick={this.onDeleteTask}><img src={basket} alt="basket"/></button>
                 </div>
             </div>
         )

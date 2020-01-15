@@ -16,23 +16,7 @@ export const CHANGE_TODOLIST = 'TodoList/Reducer/CHANGE_TODOLIST';
 export const changeTodolist = (todolistId, newTodolistTitle) => ({type: CHANGE_TODOLIST, todolistId, newTodolistTitle});
 
 const initState = {
-    todolists: [
-        /*{
-            id: 0, title: "Day plans",
-            tasks: [{id: 0, title: "HTML", isDone: false, priority: "low"},
-                {id: 1, title: "CSS", isDone: true, priority: "low"},
-                {id: 2, title: "Patterns", isDone: true, priority: "low"}]
-        },
-        {
-            id: 1, title: "Week plans",
-            tasks: [{id: 0, title: "JS", isDone: true, priority: "low"},
-                {id: 1, title: "TypeScript", isDone: false, priority: "low"}]
-        },
-        {
-            id: 2, title: "Month plans",
-            tasks: [{id: 0, title: "ReactJS", isDone: false, priority: "low"},
-                {id: 1, title: "Angular", isDone: true, priority: "low"}]
-        }*/]
+    todolists: []
 };
 
 export const reducer = (state = initState, action) => {
@@ -79,15 +63,15 @@ export const reducer = (state = initState, action) => {
         case CHANGE_TASK:
             return {
                 ...state,
-                todolists: state.todolists.map((todo) => {
+                todolists: state.todolists.map( todo => {
                     if (todo.id === action.todolistId) {
                         return {
                             ...todo,
-                            tasks: todo.tasks.map((task) => {
+                            tasks: todo.tasks.map( task => {
                                 if (task.id === action.taskId) {
-                                    return {...task, ...action.obj}
+                                    return {...task, ...action.obj};
                                 } else {
-                                    return task
+                                    return task;
                                 }
                             })
                         }

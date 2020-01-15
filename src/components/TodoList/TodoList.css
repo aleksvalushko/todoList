@@ -1,19 +1,25 @@
 .todoList {
-    width: 350px;
-    height: 500px;
-    margin: 0 auto;
-    padding-top: 10%;
+    width: 27vw;
+    height: 70vh;
+    margin-top: 20%;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
 }
 
 .todoListTitle{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1% 0 5%;
-    background-color: #528aad;
-    color: white;
-    border-radius: 5px;
+    color: black;
     font-size: 1.2vw;
+    height: 8vh;
+    border-bottom: 1px solid #cecfdd;
+    background-color: #fbfbff;
+    padding: 5%;
+    border-radius: 7px 7px 0 0;
 }
 
 .todoListDeleteButton{
@@ -21,13 +27,19 @@
     font-size: 1.5vw;
     background-color: transparent;
     border: none;
-    color: white;
+    color: black;
     outline: none;
     cursor: pointer;
+    width: 10%;
+}
+
+.todoListDeleteButton img {
+    width: 100%;
 }
 
 .todoListContent{
     background-color: white;
-    width: 346px;
-    border: 1px solid #bfbfbf;
+    max-width: 100%;
+    height: 100%;
+    padding: 5% 0;
 }

@@ -12,6 +12,7 @@ import {
     deleteTodolist, setTasks
 } from "../../redux/reducer";
 import {api} from "../../dal/api";
+import basket from "../../images/basket.svg";
 
 class TodoList extends React.Component {
 
@@ -42,14 +43,6 @@ class TodoList extends React.Component {
                 let newTask = res.data.data.item;
                 this.props.addTask(newTask, this.props.id);
             });
-        /*let newTask = {
-            id: this.state.nextTaskId,
-            title: newText,
-            isDone: false,
-            priority: 'low'
-        };
-        this.state.nextTaskId++;
-        this.props.addTask(newTask, this.props.id)*/
     };
 
     changeFilter = (newFilterValue) => {
@@ -59,8 +52,9 @@ class TodoList extends React.Component {
     };
 
     changeTask = (taskId, obj) => {
-        this.props.tasks.forEach( t => {
-            if(t.id === taskId){
+        this.props.tasks.forEach(t => {
+
+            if (t.id === taskId) {
                 api.updateTask(t, obj)
                     .then(res => {
                         this.props.changeTask(this.props.id, taskId, obj)
@@ -86,7 +80,7 @@ class TodoList extends React.Component {
 
     deleteTask = (taskId) => {
         api.deleteTask(taskId)
-            .then( res => {
+            .then(res => {
                 this.props.deleteTask(this.props.id, taskId);
             });
     };
@@ -105,12 +99,12 @@ class TodoList extends React.Component {
         return (
             <div className="App">
                 <div className="todoList">
-                    <div className="todoList-header">
+                    <div className="todoListHeader">
                         <div className='todoListTitle'>
                             <TodoListTitle title={this.props.title} changeTodolist={this.changeTodolist}/>
                             <button onClick={() => {
                                 this.deleteTodolist()
-                            }} className='todoListDeleteButton'>X
+                            }} className='todoListDeleteButton'><img src={basket} alt="basket"/>
                             </button>
                         </div>
                     </div>
