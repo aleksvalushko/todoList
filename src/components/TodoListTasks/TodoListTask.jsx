@@ -53,19 +53,19 @@ class TodoListTask extends React.Component {
 
         return (
             <div className='todoListTask'>
-                {/*<div className='toDoListCheck'>*/}
-                    <input type="checkbox" id='check' checked={this.props.task.status === 2} onChange={this.onIsDoneChanged}/>
-                    {/*<label htmlFor="check"></label>*/}
-                {/*</div>*/}
+                <input type="checkbox" id='check' checked={this.props.task.status === 2}
+                       onChange={this.onIsDoneChanged}/>
                 <div className='todoListTaskItem'>
                     <div>
                         {this.state.editMode
                             ? <input onBlur={this.deactiveEditMode} onChange={this.onTitleChanged}
                                      autoFocus={true} value={this.state.title}/>
-                            : <span onClick={this.activateEditMode} className={toDoListDoneClass}>{this.props.task.title}
+                            :
+                            <span onClick={this.activateEditMode} className={toDoListDoneClass}>{this.props.task.title}
                                 {/*; priority: {priorityTitle}*/}</span>}
                     </div>
-                    <button className='todoListTaskDelete' onClick={this.onDeleteTask}><img src={basket} alt="basket"/></button>
+                    <button className='todoListTaskDelete' onClick={this.onDeleteTask}><img src={basket} alt="basket"/>
+                    </button>
                 </div>
             </div>
         )
