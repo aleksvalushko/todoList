@@ -105,8 +105,7 @@ class TodoList extends React.Component {
                     <div className="todoListHeader">
                         <div className='todoListTitle'>
                             <div className='todoListDate'>
-                                <div  className='todoListDateWeekday'>{`${this.weekDay}, `}
-                                <span className='todoListDateDay'>{this.day}</span></div>
+                                <div  className='todoListDateWeekday'>{`${this.weekDay}, `}<span>{this.day}</span></div>
                                 <div className='todoListDateMonth'>{this.month}</div>
                             </div>
                             {/*<TodoListTitle title={this.props.title} changeTodolist={this.changeTodolist}/>*/}
@@ -116,6 +115,7 @@ class TodoList extends React.Component {
                             </button>
                         </div>
                     </div>
+                    <AddNewItemForm addNewTitle={this.addTask}/>
                     <div className='todoListContent'>
                         <TodoListTasks changeIsDoneStatus={this.changeIsDoneStatus}
                                        changeTitle={this.changeTitle}
@@ -141,7 +141,6 @@ class TodoList extends React.Component {
                                                    break;
                                            }*/
                                        })}/>
-                        <AddNewItemForm addNewTitle={this.addTask}/>
                     </div>
                     <TodoListFooter changeFilter={this.changeFilter} filterValue={this.state.filterValue}/>
                 </div>
