@@ -22,6 +22,9 @@ class TodoList extends React.Component {
 
     componentDidMount() {
         this.restoreState();
+        this.weekDay = new Date().toLocaleString('ru', {weekday: 'long'});
+        this.day = new Date().toLocaleString('ru', {day: 'numeric'});
+        this.month = new Date().toLocaleString('ru', {month: 'long'});
     };
 
     state = {
@@ -101,7 +104,12 @@ class TodoList extends React.Component {
                 <div className="todoList">
                     <div className="todoListHeader">
                         <div className='todoListTitle'>
-                            <TodoListTitle title={this.props.title} changeTodolist={this.changeTodolist}/>
+                            <div className='todoListDate'>
+                                <div  className='todoListDateWeekday'>{`${this.weekDay}, `}
+                                <span className='todoListDateDay'>{this.day}</span></div>
+                                <div className='todoListDateMonth'>{this.month}</div>
+                            </div>
+                            {/*<TodoListTitle title={this.props.title} changeTodolist={this.changeTodolist}/>*/}
                             <button onClick={() => {
                                 this.deleteTodolist()
                             }} className='todoListDeleteButton'><img src={basket} alt="basket"/>
