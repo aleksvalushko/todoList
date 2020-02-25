@@ -92,49 +92,23 @@ class TodoList extends React.Component {
             });
     };
 
-    changeAddItem = () => {
-        
-    };
-
     render = () => {
 
         let {tasks = []} = this.props;
-        let month = new Date().toLocaleString('ru', {
-            month: 'long'
-        });
-        let weekDay = new Date().toLocaleString('ru', {
-            weekday: 'long'
-        });
-        let day = new Date().toLocaleString('ru', {
-            day: 'numeric'
-        });
-        // let newYear = date.getFullYear();
 
         return (
             <div className="App">
                 <div className="todoList">
                     <div className="todoListHeader">
                         <div className='todoListTitle'>
-                            <div className='todoListDate'>
-                                <div className='todoListWeekdayDay'>
-                                    <span>{`${weekDay}, `}</span>{day}
-                                </div>
-                                <div className='todoListMonth'>
-                                    {month}
-                                </div>
-                            </div>
-                            {/*<TodoListTitle title={this.props.title} changeTodolist={this.changeTodolist}/>*/}
+                            <TodoListTitle title={this.props.title} changeTodolist={this.changeTodolist}/>
                             <button onClick={() => {
                                 this.deleteTodolist()
                             }} className='todoListDeleteButton'><img src={basket} alt="basket"/>
                             </button>
-                            <button className='todoListAddTask' onClick={this.changeAddItem}>+</button>
                         </div>
                     </div>
                     <div className='todoListContent'>
-                        <div className='todoListAddTaskForm'>
-                            <AddNewItemForm addNewTitle={this.addTask}/>
-                        </div>
                         <TodoListTasks changeIsDoneStatus={this.changeIsDoneStatus}
                                        changeTitle={this.changeTitle}
                                        changeTask={this.changeTask}
@@ -159,6 +133,7 @@ class TodoList extends React.Component {
                                                    break;
                                            }*/
                                        })}/>
+                        <AddNewItemForm addNewTitle={this.addTask}/>
                     </div>
                     <TodoListFooter changeFilter={this.changeFilter} filterValue={this.state.filterValue}/>
                 </div>

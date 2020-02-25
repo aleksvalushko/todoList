@@ -1,5 +1,4 @@
 import React from 'react';
-import './AddNewItemForm.css';
 
 class AddNewItemForm extends React.Component {
 
@@ -43,16 +42,16 @@ class AddNewItemForm extends React.Component {
     render = () => {
         let errorInput = this.state.error ? 'error' : '';
         return (
-            <div className="todoListHeader">
-                <div className="todoListNewTaskForm">
+            <div className="todoList-header">
+                <div className="todoList-newTaskForm">
                     <input type="text" placeholder="New item name"
                            className={errorInput}
                            onChange={this.onInputTextChange}
                            onKeyPress={this.onPressEnter}
                            value={this.state.title}/>
-                    {/*<button onClick={() => {this.onAddNewItemTitle()}
+                    <button onClick={() => {this.onAddNewItemTitle()}
                     }>Add
-                    </button>*/}
+                    </button>
                 </div>
             </div>
         )
