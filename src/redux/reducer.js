@@ -19,7 +19,7 @@ const initState = {
     todolists: []
 };
 
-export const reducer = (state = initState, action) => {
+export const todolistReducer = (state = initState, action) => {
     switch (action.type) {
         case ADD_TODOLIST:
             return {
