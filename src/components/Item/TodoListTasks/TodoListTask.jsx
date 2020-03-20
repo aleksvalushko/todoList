@@ -1,6 +1,6 @@
 import React from 'react';
 import './TodoListTask.css';
-import basket from '../../images/basket.svg';
+import basket from '../../../images/basket.svg';
 
 class TodoListTask extends React.Component {
 

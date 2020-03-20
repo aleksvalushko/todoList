@@ -7,6 +7,7 @@ export let LoginForm = (props) => {
         <Field component={'input'} name={'login'} />
         <Field component={'input'} name={'password'} />
         <Field component={'input'} type={'checkbox'} name={'rememberMe'} />
+        <button>Send</button>
     </form>
 };
 

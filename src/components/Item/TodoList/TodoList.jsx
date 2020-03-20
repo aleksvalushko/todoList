@@ -1,7 +1,6 @@
 import React from 'react';
-import TodoListTitle from "../TodoListHeader/TodoListTitle";
-import TodoListTasks from "../../components/TodoListTasks/TodoListTasks";
-import TodoListFooter from "../../components/TodoListFooter/TodoListFooter";
+import TodoListTasks from "../TodoListTasks/TodoListTasks";
+import TodoListFooter from "../TodoListFooter/TodoListFooter";
 import AddNewItemForm from "../TodoListHeader/AddNewItemForm";
 import {connect} from 'react-redux';
 import './TodoList.css';
@@ -10,9 +9,9 @@ import {
     changeTask, changeTodolist,
     deleteTask,
     deleteTodolist, setTasks
-} from "../../redux/reducer";
-import {api} from "../../dal/api";
-import basket from "../../images/basket.svg";
+} from "../../../redux/reducer";
+import {api} from "../../../dal/api";
+import basket from "../../../images/basket.svg";
 
 class TodoList extends React.Component {
 
