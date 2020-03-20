@@ -54,8 +54,8 @@ class App extends React.Component {
 
         return (
             <div className='appWrapper'>
-                {/*<ConnectedItem />*/}
-                <Login />
+                <ConnectedItem />
+                {/*<Login />*/}
             </div>
         );
     }
