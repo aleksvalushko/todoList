@@ -3,10 +3,10 @@ import './Login.css';
 import {Field, reduxForm} from "redux-form";
 
 export let LoginForm = (props) => {
-    return <form onSubmit={props.handleSubmit}>
-        <Field component={'input'} name={'login'} />
-        <Field component={'input'} name={'password'} />
-        <Field component={'input'} type={'checkbox'} name={'rememberMe'} />
+    return <form onSubmit={props.handleSubmit} className='loginForm'>
+        <Field component={'input'} name={'login'} placeholder={'Login'} />
+        <Field component={'input'} name={'password'} type={'password'} placeholder={'Password'} />
+        <div><Field component={'input'} type={'checkbox'} name={'rememberMe'} />remember me</div>
         <button>Send</button>
     </form>
 };
@@ -18,8 +18,8 @@ let Login = () => {
     };
 
     return (
-        <div>
-            <div>Login</div>
+        <div className='login'>
+            <div className='loginTitle'>Login</div>
             <LoginReducerForm onSubmit={onSubmit}/>
         </div>
     );
