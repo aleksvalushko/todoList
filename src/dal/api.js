@@ -41,3 +41,11 @@ export const api = {
         return promise;
     }
 };
+
+export const authAPI = {
+    authMe(){
+        let promise = instance.get('auth/me')
+            .then(response => response.data);
+        return promise;
+    }
+};

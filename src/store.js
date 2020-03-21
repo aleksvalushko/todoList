@@ -1,14 +1,15 @@
 import React from 'react';
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {todolistReducer} from "./redux/reducer";
 import { reducer as formReducer } from 'redux-form';
+import thunk from 'redux-thunk';
 
 let reducers = combineReducers({
    reducer: todolistReducer,
    form: formReducer
 });
 
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware(thunk));
 window.store = store;
 
 export default store;

@@ -1,26 +1,42 @@
-export const ADD_TODOLIST = 'TodoList/Reducer/ADD_TODOLIST';
+import {authAPI} from "../dal/api";
+
+const ADD_TODOLIST = 'TodoList/Reducer/ADD_TODOLIST';
 export const addTodolist = (newTodoList) => ({type: ADD_TODOLIST, newTodoList});
-export const DELETE_TODOLIST = 'TodoList/Reducer/DELETE_TODOLIST';
+const DELETE_TODOLIST = 'TodoList/Reducer/DELETE_TODOLIST';
 export const deleteTodolist = (todolistId) => ({type: DELETE_TODOLIST, todolistId});
-export const ADD_TASK = 'TodoList/Reducer/ADD_TASK';
+const ADD_TASK = 'TodoList/Reducer/ADD_TASK';
 export const addTask = (newTask, todolistId) => ({type: ADD_TASK, newTask, todolistId});
-export const CHANGE_TASK = 'TodoList/Reducer/CHANGE_TASK';
+const CHANGE_TASK = 'TodoList/Reducer/CHANGE_TASK';
 export const changeTask = (todolistId, taskId, obj) => ({type: CHANGE_TASK, todolistId, taskId, obj});
-export const DELETE_TASK = 'TodoList/Reducer/DELETE_TASK';
+const DELETE_TASK = 'TodoList/Reducer/DELETE_TASK';
 export const deleteTask = (todolistId, taskId) => ({type: DELETE_TASK, todolistId, taskId});
-export const SET_TODOLISTS = 'TodoList/Reducer/SET_TODOLISTS';
+const SET_TODOLISTS = 'TodoList/Reducer/SET_TODOLISTS';
 export const setTodolist = (todolists) => ({type: SET_TODOLISTS, todolists});
-export const SET_TASKS = 'TodoList/Reducer/SET_TASKS';
+const SET_TASKS = 'TodoList/Reducer/SET_TASKS';
 export const setTasks = (tasks, todolistId) => ({type: SET_TASKS, tasks, todolistId});
-export const CHANGE_TODOLIST = 'TodoList/Reducer/CHANGE_TODOLIST';
+const CHANGE_TODOLIST = 'TodoList/Reducer/CHANGE_TODOLIST';
 export const changeTodolist = (todolistId, newTodolistTitle) => ({type: CHANGE_TODOLIST, todolistId, newTodolistTitle});
+const SET_AUTH_USER_DATA = 'TodoList/Reducer/SET_AUTH_USER_DATA';
+export const setAuthUserData = (userId, email, login, isAuth) => (
+    {type: SET_AUTH_USER_DATA, payload: {userId, email, login, isAuth}}
+);
+const SUCCESS_INITIALIZING = 'TodoList/Reducer/SUCCESS_INITIALIZING';
+export const successInitializing = () => ({type: SUCCESS_INITIALIZING});
 
 const initState = {
-    todolists: []
+    todolists: [],
+    userId: null,
+    isAuth: false,
+    initialized: false
 };
 
 export const todolistReducer = (state = initState, action) => {
     switch (action.type) {
+        case SET_AUTH_USER_DATA:
+            return {
+                ...state,
+                ...action.payload
+            };
         case ADD_TODOLIST:
             return {
                 ...state,
@@ -29,7 +45,7 @@ export const todolistReducer = (state = initState, action) => {
         case SET_TODOLISTS:
             return {
                 ...state,
-                todolists: action.todolists.map( t => ({...t, tasks: []}))
+                todolists: action.todolists.map(t => ({...t, tasks: []}))
             };
         case DELETE_TODOLIST:
             return {
@@ -52,8 +68,8 @@ export const todolistReducer = (state = initState, action) => {
         case SET_TASKS:
             return {
                 ...state,
-                todolists: state.todolists.map( t => {
-                    if(t.id === action.todolistId){
+                todolists: state.todolists.map(t => {
+                    if (t.id === action.todolistId) {
                         return {...t, tasks: action.tasks}
                     } else {
                         return t
@@ -63,11 +79,11 @@ export const todolistReducer = (state = initState, action) => {
         case CHANGE_TASK:
             return {
                 ...state,
-                todolists: state.todolists.map( todo => {
+                todolists: state.todolists.map(todo => {
                     if (todo.id === action.todolistId) {
                         return {
                             ...todo,
-                            tasks: todo.tasks.map( task => {
+                            tasks: todo.tasks.map(task => {
                                 if (task.id === action.taskId) {
                                     return {...task, ...action.obj};
                                 } else {
@@ -82,23 +98,23 @@ export const todolistReducer = (state = initState, action) => {
             };
         case CHANGE_TODOLIST:
             return {
-              ...state,
-              todolists: state.todolists.map( todo => {
-                  if(todo.id === action.todolistId){
-                      return {...todo, }
-                  } else {
-                      return todo
-                  }
-              })
+                ...state,
+                todolists: state.todolists.map(todo => {
+                    if (todo.id === action.todolistId) {
+                        return {...todo,}
+                    } else {
+                        return todo
+                    }
+                })
             };
         case DELETE_TASK:
             return {
                 ...state,
-                todolists: state.todolists.map( todo => {
-                    if(todo.id === action.todolistId){
+                todolists: state.todolists.map(todo => {
+                    if (todo.id === action.todolistId) {
                         return {
                             ...todo,
-                            tasks: todo.tasks.filter( task => {
+                            tasks: todo.tasks.filter(task => {
                                 return task.id !== action.taskId
                             })
                         }
@@ -110,4 +126,18 @@ export const todolistReducer = (state = initState, action) => {
         default:
             return state;
     }
+};
+
+export const getAuthUserData = () => async (dispatch) => {
+    let data = await authAPI.authMe();
+    if (data.resultCode === 0) {
+        let {id, email, login} = data.data;
+        dispatch(setAuthUserData(id, email, login, true));
+    }
+};
+
+export const initializingApp = () => async (dispatch) => {
+    let promise = dispatch(getAuthUserData());
+    await Promise.all([promise]);
+    dispatch(successInitializing());
 };

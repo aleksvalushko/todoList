@@ -2,13 +2,15 @@ import React from 'react';
 import './App.css';
 import ConnectedItem from "./components/Item/Item";
 import Login from "./components/Login/Login";
+import {connect} from "react-redux";
+import {initializingApp} from "./redux/reducer";
 
 class App extends React.Component {
 
-    /*componentDidMount() {
-        this.restoreState();
+    componentDidMount() {
+        this.props.initializingApp();
     };
-
+/*
     state = {
         newTodoListId: 0
     };*/
@@ -61,5 +63,9 @@ class App extends React.Component {
     }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    initialized: state.reducer.initialized
+});
+
+export default connect (mapStateToProps, {initializingApp})(App);
 
