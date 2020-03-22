@@ -1,9 +1,10 @@
 import React from 'react';
-import './App.css';
+import mod from './App.module.css';
 import ConnectedItem from "./components/Item/Item";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
 import {initializingApp} from "./redux/reducer";
+import {Route} from "react-router-dom";
 
 class App extends React.Component {
 
@@ -55,9 +56,9 @@ class App extends React.Component {
     render = () => {
 
         return (
-            <div className='appWrapper'>
-                {/*<ConnectedItem />*/}
-                <Login />
+            <div className={mod.appWrapper}>
+                <Route path='/login' render={() => <Login />}/>
+                <Route path='/todolist' render={() => <ConnectedItem />}/>
             </div>
         );
     }

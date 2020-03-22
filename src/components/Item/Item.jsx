@@ -1,10 +1,11 @@
 import React from 'react';
-import './Item.css';
+import mod from './Item.module.css';
 import TodoList from "./TodoList/TodoList";
 import AddNewItemForm from "./TodoListHeader/AddNewItemForm";
 import {addTodolist, setTodolist} from "../../redux/reducer";
 import {connect} from "react-redux";
 import {api} from "../../dal/api";
+import {Redirect} from "react-router-dom";
 
 class Item extends React.Component {
 
@@ -29,20 +30,26 @@ class Item extends React.Component {
                 let todolists = res.data.data.item;
                 this.props.addTodolist(todolists);
             });
-    }
+    };
 
-    render = () => {
+    render () {
 
         let todolists = this.props.todolists.map(t => {
             return <TodoList key={t.id} id={t.id} title={t.title} tasks={t.tasks}/>
         });
 
+        /*if(!this.props.isAuth){
+            return <Redirect to='/login'/>
+        } else {
+            return <Redirect to='/todolist' />
+        }*/
+
         return (
-            <div className='item'>
+            <div className={mod.item}>
                 <div>
                     <AddNewItemForm addNewTitle={this.addTodolist}/>
                 </div>
-                <div className="App">
+                <div className={mod.App}>
                     {todolists}
                 </div>
             </div>
@@ -52,7 +59,8 @@ class Item extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        todolists: state.reducer.todolists
+        todolists: state.reducer.todolists,
+        isAuth: state.reducer.isAuth
     }
 };
 

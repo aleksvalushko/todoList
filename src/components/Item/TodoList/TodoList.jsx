@@ -3,7 +3,7 @@ import TodoListTasks from "../TodoListTasks/TodoListTasks";
 import TodoListFooter from "../TodoListFooter/TodoListFooter";
 import AddNewItemForm from "../TodoListHeader/AddNewItemForm";
 import {connect} from 'react-redux';
-import './TodoList.css';
+import mod from './TodoList.module.css';
 import {
     addTask,
     changeTask, changeTodolist,
@@ -99,23 +99,23 @@ class TodoList extends React.Component {
         let {tasks = []} = this.props;
 
         return (
-            <div className="App">
-                <div className="todoList">
-                    <div className="todoListHeader">
-                        <div className='todoListTitle'>
-                            <div className='todoListDate'>
-                                <div  className='todoListDateWeekday'>{`${this.weekDay}, `}<span>{this.day}</span></div>
-                                <div className='todoListDateMonth'>{this.month}</div>
+            <div className={mod.App}>
+                <div className={mod.todoList}>
+                    <div className={mod.todoListHeader}>
+                        <div className={mod.todoListTitle}>
+                            <div className={mod.todoListDate}>
+                                <div  className={mod.todoListDateWeekday}>{`${this.weekDay}, `}<span>{this.day}</span></div>
+                                <div className={mod.todoListDateMonth}>{this.month}</div>
                             </div>
                             {/*<TodoListTitle title={this.props.title} changeTodolist={this.changeTodolist}/>*/}
                             <button onClick={() => {
                                 this.deleteTodolist()
-                            }} className='todoListDeleteButton'><img src={basket} alt="basket"/>
+                            }} className={mod.todoListDeleteButton}><img src={basket} alt="basket"/>
                             </button>
                         </div>
                     </div>
                     <AddNewItemForm addNewTitle={this.addTask}/>
-                    <div className='todoListContent'>
+                    <div className={mod.todoListContent}>
                         <TodoListTasks changeIsDoneStatus={this.changeIsDoneStatus}
                                        changeTitle={this.changeTitle}
                                        changeTask={this.changeTask}

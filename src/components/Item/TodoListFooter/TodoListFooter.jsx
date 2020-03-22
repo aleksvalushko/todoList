@@ -1,5 +1,5 @@
 import React from 'react';
-import './TodoListFooter.css'
+import mod from './TodoListFooter.module.css'
 
 class TodoListFooter extends React.Component{
 
@@ -33,12 +33,12 @@ class TodoListFooter extends React.Component{
 
     render = () => {
 
-        let classForAll = this.props.filterValue === 'All' ? 'filterActive' : '';
-        let classForCompleted = this.props.filterValue === 'Completed' ? 'filterActive' : '';
-        let classForActive = this.props.filterValue === 'Active' ? 'filterActive' : '';
+        let classForAll = this.props.filterValue === 'All' ? `${mod.filterActive}` : '';
+        let classForCompleted = this.props.filterValue === 'Completed' ? `${mod.filterActive}` : '';
+        let classForActive = this.props.filterValue === 'Active' ? `${mod.filterActive}` : '';
 
         return (
-            <div className="todoList-footer">
+            <div className={mod.todoListFooter}>
                 {!this.state.isHidden &&
                 <div>
                     <button onClick= {() => {this.onAllFilterClick()}}
