@@ -10,7 +10,8 @@
 .loginForm{
     display: flex;
     flex-direction: column;
-    width: 250px;
+    width: 450px;
+    height: 300px;
     margin: 2% 0;
 }
 

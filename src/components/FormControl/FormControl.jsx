@@ -1,10 +1,13 @@
 import React from 'react';
 import mod from './FormControl.module.css';
 
-const Textarea = ({input, meta, ...props}) => {
-  return (
-      <div className={mod.formControl + '' + mod.error}>
-          <textarea {...input} {...props} />
-      </div>
-  )
+export const Input = ({input, meta, ...props}) => {
+
+    const hasError = meta.touched && meta.error;
+    return (
+        <div className={mod.formControl + ' ' + (hasError && mod.error)}>
+            <input {...input} {...props} />
+            {hasError && <span>{meta.error}</span>}
+        </div>
+    )
 };
