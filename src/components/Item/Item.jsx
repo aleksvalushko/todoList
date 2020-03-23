@@ -2,7 +2,7 @@ import React from 'react';
 import mod from './Item.module.css';
 import TodoList from "./TodoList/TodoList";
 import AddNewItemForm from "./TodoListHeader/AddNewItemForm";
-import {addTodolist, setTodolist} from "../../redux/reducer";
+import {addTodolist, setAuthUserData, setTodolist} from "../../redux/reducer";
 import {connect} from "react-redux";
 import {api} from "../../dal/api";
 import {Redirect} from "react-router-dom";
@@ -24,7 +24,7 @@ class Item extends React.Component {
             });
     };
 
-    addTodolist = (title)=> {
+    addTodolist = (title) => {
         api.createTodolists(title)
             .then(res => {
                 let todolists = res.data.data.item;
@@ -32,17 +32,15 @@ class Item extends React.Component {
             });
     };
 
-    render () {
+    render() {
 
         let todolists = this.props.todolists.map(t => {
             return <TodoList key={t.id} id={t.id} title={t.title} tasks={t.tasks}/>
         });
 
-        /*if(!this.props.isAuth){
+        if (!this.props.isAuth) {
             return <Redirect to='/login'/>
-        } else {
-            return <Redirect to='/todolist' />
-        }*/
+        }
 
         return (
             <div className={mod.item}>

@@ -44,8 +44,10 @@ export const api = {
 
 export const authAPI = {
     authMe(){
-        let promise = instance.get('auth/me')
-            .then(response => response.data);
+        let promise = instance.get('/auth/me')
+            .then(response => {
+                return response.data
+            });
         return promise;
     }
 };

@@ -3,13 +3,14 @@ import mod from './App.module.css';
 import ConnectedItem from "./components/Item/Item";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
-import {initializingApp} from "./redux/reducer";
+import {getAuthUserData, initializingApp} from "./redux/reducer";
 import {Route} from "react-router-dom";
 
 class App extends React.Component {
 
     componentDidMount() {
-        this.props.initializingApp();
+        // this.props.initializingApp();
+        this.props.getAuthUserData();
     };
 /*
     state = {
@@ -64,9 +65,11 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    initialized: state.reducer.initialized
-});
+const mapStateToProps = (state) => {
+    return {
+        initialized: state.reducer.initialized
+    }
+};
 
-export default connect (mapStateToProps, {initializingApp})(App);
+export default connect (mapStateToProps, {getAuthUserData})(App);
 

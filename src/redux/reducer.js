@@ -26,6 +26,8 @@ export const successInitializing = () => ({type: SUCCESS_INITIALIZING});
 const initState = {
     todolists: [],
     userId: null,
+    email: null,
+    login: null,
     isAuth: false,
     initialized: false
 };
@@ -36,6 +38,11 @@ export const todolistReducer = (state = initState, action) => {
             return {
                 ...state,
                 ...action.payload
+            };
+        case SUCCESS_INITIALIZING:
+            return {
+                ...state,
+                initialized: true
             };
         case ADD_TODOLIST:
             return {
@@ -136,8 +143,9 @@ export const getAuthUserData = () => async (dispatch) => {
     }
 };
 
+/*
 export const initializingApp = () => async (dispatch) => {
     let promise = dispatch(getAuthUserData());
     await Promise.all([promise]);
     dispatch(successInitializing());
-};
+};*/
