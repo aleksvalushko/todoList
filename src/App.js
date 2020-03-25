@@ -2,7 +2,6 @@ import React from 'react';
 import mod from './App.module.css';
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
-import {getAuthUserData, initializingApp} from "./redux/reducer";
 import {Route} from "react-router-dom";
 import ConnectedItemContainer from "./components/Item/ItemContainer";
 

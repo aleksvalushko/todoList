@@ -1,5 +1,3 @@
-import {authAPI} from "../dal/api";
-
 const ADD_TODOLIST = 'TodoList/Reducer/ADD_TODOLIST';
 export const addTodolist = (newTodoList) => ({type: ADD_TODOLIST, newTodoList});
 const DELETE_TODOLIST = 'TodoList/Reducer/DELETE_TODOLIST';
@@ -113,18 +111,3 @@ export const todolistReducer = (state = initState, action) => {
             return state;
     }
 };
-
-/*export const getAuthUserData = () => async (dispatch) => {
-    let data = await authAPI.authMe();
-    if (data.resultCode === 0) {
-        let {id, email, login} = data.data;
-        dispatch(setAuthUserData(id, email, login, true));
-    }
-};*/
-
-/*
-export const initializingApp = () => async (dispatch) => {
-    let promise = dispatch(getAuthUserData());
-    await Promise.all([promise]);
-    dispatch(successInitializing());
-};*/
