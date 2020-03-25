@@ -8,3 +8,8 @@
 .error {
     border-color: red;
 }
+
+.itemHeader{
+    display: flex;
+    justify-content: space-between;
+}

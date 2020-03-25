@@ -3,6 +3,8 @@ import mod from './Login.module.css';
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../utils/validators";
 import {Input} from "../FormControl/FormControl";
+import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 const maxLength20 = maxLengthCreator(20);
 const maxLength40 = maxLengthCreator(40);
@@ -35,7 +37,6 @@ let Login = () => {
 export let LoginReducerForm = reduxForm({
     form: 'login'
 })(LoginForm);
-
 
 export default Login;
 

@@ -16,34 +16,13 @@ const SET_TASKS = 'TodoList/Reducer/SET_TASKS';
 export const setTasks = (tasks, todolistId) => ({type: SET_TASKS, tasks, todolistId});
 const CHANGE_TODOLIST = 'TodoList/Reducer/CHANGE_TODOLIST';
 export const changeTodolist = (todolistId, newTodolistTitle) => ({type: CHANGE_TODOLIST, todolistId, newTodolistTitle});
-const SET_AUTH_USER_DATA = 'TodoList/Reducer/SET_AUTH_USER_DATA';
-export const setAuthUserData = (userId, email, login, isAuth) => (
-    {type: SET_AUTH_USER_DATA, payload: {userId, email, login, isAuth}}
-);
-const SUCCESS_INITIALIZING = 'TodoList/Reducer/SUCCESS_INITIALIZING';
-export const successInitializing = () => ({type: SUCCESS_INITIALIZING});
 
 const initState = {
-    todolists: [],
-    userId: null,
-    email: null,
-    login: null,
-    isAuth: false,
-    initialized: false
+    todolists: []
 };
 
 export const todolistReducer = (state = initState, action) => {
     switch (action.type) {
-        case SET_AUTH_USER_DATA:
-            return {
-                ...state,
-                ...action.payload
-            };
-        case SUCCESS_INITIALIZING:
-            return {
-                ...state,
-                initialized: true
-            };
         case ADD_TODOLIST:
             return {
                 ...state,
@@ -135,13 +114,13 @@ export const todolistReducer = (state = initState, action) => {
     }
 };
 
-export const getAuthUserData = () => async (dispatch) => {
+/*export const getAuthUserData = () => async (dispatch) => {
     let data = await authAPI.authMe();
     if (data.resultCode === 0) {
         let {id, email, login} = data.data;
         dispatch(setAuthUserData(id, email, login, true));
     }
-};
+};*/
 
 /*
 export const initializingApp = () => async (dispatch) => {
