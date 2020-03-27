@@ -1,17 +1,19 @@
+import {api} from "../dal/api";
+
 const ADD_TODOLIST = 'TodoList/Reducer/ADD_TODOLIST';
-export const addTodolist = (newTodoList) => ({type: ADD_TODOLIST, newTodoList});
+const addTodolist = (newTodoList) => ({type: ADD_TODOLIST, newTodoList});
 const DELETE_TODOLIST = 'TodoList/Reducer/DELETE_TODOLIST';
 export const deleteTodolist = (todolistId) => ({type: DELETE_TODOLIST, todolistId});
 const ADD_TASK = 'TodoList/Reducer/ADD_TASK';
-export const addTask = (newTask, todolistId) => ({type: ADD_TASK, newTask, todolistId});
+const addTask = (newTask, todolistId) => ({type: ADD_TASK, newTask, todolistId});
 const CHANGE_TASK = 'TodoList/Reducer/CHANGE_TASK';
 export const changeTask = (todolistId, taskId, obj) => ({type: CHANGE_TASK, todolistId, taskId, obj});
 const DELETE_TASK = 'TodoList/Reducer/DELETE_TASK';
 export const deleteTask = (todolistId, taskId) => ({type: DELETE_TASK, todolistId, taskId});
 const SET_TODOLISTS = 'TodoList/Reducer/SET_TODOLISTS';
-export const setTodolist = (todolists) => ({type: SET_TODOLISTS, todolists});
+const setTodolist = (todolists) => ({type: SET_TODOLISTS, todolists});
 const SET_TASKS = 'TodoList/Reducer/SET_TASKS';
-export const setTasks = (tasks, todolistId) => ({type: SET_TASKS, tasks, todolistId});
+const setTasks = (tasks, todolistId) => ({type: SET_TASKS, tasks, todolistId});
 const CHANGE_TODOLIST = 'TodoList/Reducer/CHANGE_TODOLIST';
 export const changeTodolist = (todolistId, newTodolistTitle) => ({type: CHANGE_TODOLIST, todolistId, newTodolistTitle});
 
@@ -111,3 +113,58 @@ export const todolistReducer = (state = initState, action) => {
             return state;
     }
 };
+
+export const loadTasksThunkCreator = (todolistId) => {
+    return (dispatch) => {
+        api.getTasks(todolistId)
+            .then(res => {
+                let allTasks = res.data.items;
+                dispatch(setTasks(allTasks, todolistId));
+            });
+    };
+};
+
+export const addTaskThunkCreator = (newText, todolistId) => {
+    return (dispatch) => {
+        api.createTask(newText, todolistId)
+            .then(res => {
+                let newTask = res.data.data.item;
+                dispatch(addTask(newTask, todolistId));
+            });
+    }
+};
+
+export const addTodoListThunkCreator = (title) => {
+    return (dispatch) => {
+        api.createTodolists(title)
+            .then(res => {
+                let todolists = res.data.data.item;
+                dispatch(addTodolist(todolists));
+            });
+    }
+};
+
+export const setTodoListThunkCreator = (dispatch) => {
+    api.getTodolists()
+        .then(res => {
+            dispatch(setTodolist(res.data));
+        });
+};
+
+/*
+export const restoreState = (dispatch) => {
+    api.getTodolists()
+        .then(res => {
+            dispatch(setTodolist(res.data));
+        });
+};
+
+export const addTodoList = (title) => {
+    return (dispatch) => {
+        api.createTodolists(title)
+            .then(res => {
+                let todolists = res.data.data.item;
+                dispatch(addTodolist(todolists));
+            });
+    };
+}*/

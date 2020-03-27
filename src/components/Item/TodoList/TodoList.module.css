@@ -1,3 +1,6 @@
+.App{
+    margin: 0 2.5%;
+}
 .todoList {
     width: 400px;
     min-height: 70vh;
@@ -9,12 +12,12 @@
     background-color: white;
 }
 
-.todoListTitle{
+.todoListHeader{
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: black;
-    font-size: 1.2vw;
+    font-size: 25px;
     height: 8vh;
     border-bottom: 1px solid #cecfdd;
     background-color: #fbfbff;
@@ -40,20 +43,5 @@
 .todoListContent{
     background-color: white;
     max-width: 100%;
-    height: 100%;
-    padding: 5% 0;
-}
-
-.todoListDateWeekday{
-    color: #770db0;
-    font-size: 25px;
-}
-
-.todoListDateWeekday span{
-    font-weight: 600;
-}
-
-.todoListDateMonth{
-    font-size: 17px;
-    color: gray;
+    min-height: 45vh;
 }

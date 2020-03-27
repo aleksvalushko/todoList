@@ -5,13 +5,14 @@ import AddNewItemForm from "../TodoListHeader/AddNewItemForm";
 import {connect} from 'react-redux';
 import mod from './TodoList.module.css';
 import {
-    addTask,
+    addTaskThunkCreator,
     changeTask, changeTodolist,
     deleteTask,
-    deleteTodolist, setTasks
+    deleteTodolist, loadTasksThunkCreator
 } from "../../../redux/reducer";
 import {api} from "../../../dal/api";
 import basket from "../../../images/basket.svg";
+import TodoListTitle from "../TodoListHeader/TodoListTitle";
 
 class TodoList extends React.Component {
 
@@ -21,9 +22,6 @@ class TodoList extends React.Component {
 
     componentDidMount() {
         this.restoreState();
-        this.weekDay = new Date().toLocaleString('ru', {weekday: 'long'});
-        this.day = new Date().toLocaleString('ru', {day: 'numeric'});
-        this.month = new Date().toLocaleString('ru', {month: 'long'});
     };
 
     state = {
@@ -32,19 +30,11 @@ class TodoList extends React.Component {
     };
 
     restoreState = () => {
-        api.getTasks(this.props.id)
-            .then(res => {
-                let allTasks = res.data.items;
-                this.props.setTasks(allTasks, this.props.id);
-            });
+        this.props.loadTasks(this.props.id);
     };
 
-    addTask = (newTitle) => {
-        api.createTask(newTitle, this.props.id)
-            .then(res => {
-                let newTask = res.data.data.item;
-                this.props.addTask(newTask, this.props.id);
-            });
+    addTask = (newText) => {
+        this.props.addTask(newText, this.props.id);
     };
 
     changeFilter = (newFilterValue) => {
@@ -102,19 +92,13 @@ class TodoList extends React.Component {
             <div className={mod.App}>
                 <div className={mod.todoList}>
                     <div className={mod.todoListHeader}>
-                        <div className={mod.todoListTitle}>
-                            <div className={mod.todoListDate}>
-                                <div  className={mod.todoListDateWeekday}>{`${this.weekDay}, `}<span>{this.day}</span></div>
-                                <div className={mod.todoListDateMonth}>{this.month}</div>
-                            </div>
-                            {/*<TodoListTitle title={this.props.title} changeTodolist={this.changeTodolist}/>*/}
-                            <button onClick={() => {
-                                this.deleteTodolist()
-                            }} className={mod.todoListDeleteButton}><img src={basket} alt="basket"/>
-                            </button>
-                        </div>
+                        <TodoListTitle title={this.props.title} changeTodolist={this.changeTodolist}/>
+                        <button onClick={() => {
+                            this.deleteTodolist()
+                        }} className={mod.todoListDeleteButton}><img src={basket} alt="basket"/>
+                        </button>
                     </div>
-                    <AddNewItemForm addNewTitle={this.addTask}/>
+                    <AddNewItemForm addNewTitle={this.addTask} />
                     <div className={mod.todoListContent}>
                         <TodoListTasks changeIsDoneStatus={this.changeIsDoneStatus}
                                        changeTitle={this.changeTitle}
@@ -150,13 +134,13 @@ class TodoList extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addTask: (newTask, todolistId) => {
-            const action = addTask(newTask, todolistId);
-            dispatch(action)
+        addTask: (newText, todolistId) => {
+            const thunk = addTaskThunkCreator(newText, todolistId);
+            dispatch(thunk);
         },
-        setTasks: (tasks, todolistId) => {
-            const action = setTasks(tasks, todolistId);
-            dispatch(action);
+        loadTasks: (todolistId) => {
+            const thunk = loadTasksThunkCreator(todolistId);
+            dispatch(thunk);
         },
         changeTask: (todolistId, taskId, obj) => {
             const action = changeTask(todolistId, taskId, obj);

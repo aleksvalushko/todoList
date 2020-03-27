@@ -1,38 +1,28 @@
 import React from 'react';
-import {addTodolist, setTodolist} from "../../redux/reducer";
+import {addTodoListThunkCreator, setTodoListThunkCreator} from "../../redux/reducer";
 import {connect} from "react-redux";
-import {api, authAPI} from "../../dal/api";
+import {authAPI} from "../../dal/api";
 import Item from "./Item";
 import {setAuthUserData} from "../../redux/authReducer";
 
 class ItemContainer extends React.Component {
 
     componentDidMount() {
-        this.restoreState();
+        // this.restoreState();
+        this.props.setTodolists();
         authAPI.authMe()
             .then(res => {
                 if (res.resultCode === 0) {
-                    debugger
                     let {id, email, login} = res.data;
                     this.props.setAuthUserData(id, email, login);
                 }
-            });
+            })
+        // this.props.setAuthUserData();
     };
 
-    restoreState = () => {
-        api.getTodolists()
-            .then(res => {
-                this.props.setTodolists(res.data);
-            });
-    };
-
-    addTodolist = (title) => {
-        api.createTodolists(title)
-            .then(res => {
-                let todolists = res.data.data.item;
-                this.props.addTodolist(todolists);
-            });
-    };
+    /*restoreState = () => {
+        this.props.setTodolists();
+    };*/
 
     render() {
 
@@ -53,16 +43,18 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTodolist: (newTodoList) => {
-            const action = addTodolist(newTodoList);
-            dispatch(action);
+            const thunk = addTodoListThunkCreator(newTodoList);
+            dispatch(thunk);
         },
         setTodolists: (todolists) => {
-            const action = setTodolist(todolists);
-            dispatch(action);
+            const thunk = setTodoListThunkCreator(todolists);
+            dispatch(thunk);
         },
         setAuthUserData: (id, login, email) => {
             const action = setAuthUserData(id, login, email);
             dispatch(action);
+            /*const thunk = getAuthUserData(id, login, email);
+            dispatch(thunk);*/
         }
     }
 };

@@ -1,6 +1,8 @@
+import {authAPI} from "../dal/api";
+
 const SET_AUTH_USER_DATA = 'TodoList/Reducer/SET_AUTH_USER_DATA';
-export const setAuthUserData = (userId, email, login) => (
-    {type: SET_AUTH_USER_DATA, payload: {userId, email, login}}
+export const setAuthUserData = (userId, email, login, isAuth) => (
+    {type: SET_AUTH_USER_DATA, payload: {userId, email, login, isAuth}}
 );
 
 const initState = {
@@ -22,6 +24,18 @@ export const authReducer = (state = initState, action) => {
             return state;
     }
 };
+
+/*
+export const getAuthUserData = (dispatch) => {
+    authAPI.authMe()
+        .then(res => {
+            if (res.resultCode === 0) {
+                let {id, email, login} = res.data;
+                dispatch(setAuthUserData(id, email, login, true));
+            }
+        })
+};
+*/
 
 /*export const getAuthUserData = () => async (dispatch) => {
     let data = await authAPI.authMe();

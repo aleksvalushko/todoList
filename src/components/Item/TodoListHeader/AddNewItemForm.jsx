@@ -1,4 +1,5 @@
 import React from 'react';
+import mod from './TodoListInputForm.module.css';
 
 class AddNewItemForm extends React.Component {
 
@@ -42,8 +43,8 @@ class AddNewItemForm extends React.Component {
     render = () => {
         let errorInput = this.state.error ? 'error' : '';
         return (
-            <div className="todoList-header">
-                <div className="todoList-newTaskForm">
+            <div className={mod.todoListHeader}>
+                <div className={mod.todoListNewTaskForm}>
                     <input type="text" placeholder="New item name"
                            className={errorInput}
                            onChange={this.onInputTextChange}

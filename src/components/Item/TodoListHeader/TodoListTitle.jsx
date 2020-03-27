@@ -1,4 +1,5 @@
 import React from 'react';
+import mod from './TodoListTitle.module.css';
 
 class TodoListTitle extends React.Component {
 
@@ -33,8 +34,8 @@ class TodoListTitle extends React.Component {
             <div>
                 {this.state.editMode
                 ? <input onBlur={this.deactiveEditMode} autoFocus={true} value={this.state.title}
-                    onChange={this.changeTodolistTitle} className='todolistTitleInput'/>
-                : <h3 className="todolistHeaderTitle" onClick={this.activeEditMode}>{this.state.title}</h3>}
+                    onChange={this.changeTodolistTitle} className={mod.todolistTitleInput}/>
+                : <h3 className={mod.todolistHeaderTitle} onClick={this.activeEditMode}>{this.state.title}</h3>}
             </div>
         )
     }
