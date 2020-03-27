@@ -144,7 +144,7 @@ export const addTodoListThunkCreator = (title) => {
     }
 };
 
-export const setTodoListThunkCreator = (dispatch) => {
+export const setTodoListThunkCreator = () => (dispatch) => {
     api.getTodolists()
         .then(res => {
             dispatch(setTodolist(res.data));

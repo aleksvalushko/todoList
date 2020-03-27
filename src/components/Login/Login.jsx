@@ -3,6 +3,8 @@ import mod from './Login.module.css';
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../utils/validators";
 import {Input} from "../FormControl/FormControl";
+import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 const maxLength20 = maxLengthCreator(20);
 const maxLength40 = maxLengthCreator(40);
@@ -18,11 +20,15 @@ export let LoginForm = (props) => {
     </form>
 };
 
-let Login = () => {
+let Login = (props) => {
 
     let onSubmit = (formData) => {
         console.log(formData);
     };
+
+    /*if(props.isAuth){
+        return <Redirect to='/todolist'/>
+    }*/
 
     return (
         <div className={mod.login}>
@@ -36,5 +42,9 @@ export let LoginReducerForm = reduxForm({
     form: 'login'
 })(LoginForm);
 
-export default Login;
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth
+});
+
+export default connect(mapStateToProps)(Login);
 

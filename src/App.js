@@ -11,54 +11,14 @@ class App extends React.Component {
         // this.props.initializingApp();
         // this.props.getAuthUserData();
     };
-/*
-    state = {
-        newTodoListId: 0
-    };*/
-    /*saveState = () => {
-        let stateAsString = JSON.stringify(this.state);
-        localStorage.setItem('our-itemsState-' + this.state.todolists.id, stateAsString);
-    };*/
-
-    /*_restoreState = () => {
-        let state = {
-            todolists: [],
-            newTodoListId: 0
-        };
-        let stateAsString = localStorage.getItem('our-itemsState-' + this.props.todolists.id);
-        if (stateAsString != null) {
-            state = JSON.parse(stateAsString);
-        }
-        this.setState(state);
-    };*/
-
-   /* restoreState = () => {
-        api.getTodolists()
-            .then(res => {
-                this.props.setTodolists(res.data);
-            });
-    };
-
-    addTodolist = (title)=> {
-        api.createTodolists(title)
-            .then(res => {
-                let todolists = res.data.data.item;
-                this.props.addTodolist(todolists);
-            });*/
-        /*let newTodoList = {
-            id: this.props.todolists.length + 1,
-            title: title/!*,
-            tasks: []*!/
-        };
-        this.props.addTodolist(newTodoList)*/
-    // };
 
     render = () => {
 
         return (
             <div className={mod.appWrapper}>
                 <Route path='/login' render={() => <Login />}/>
-                <ConnectedItemContainer />
+                <Route path='/todolist' render={() => <ConnectedItemContainer />}/>
+
             </div>
         );
     }

@@ -1,30 +1,22 @@
 import React from 'react';
 import {addTodoListThunkCreator, setTodoListThunkCreator} from "../../redux/reducer";
 import {connect} from "react-redux";
-import {authAPI} from "../../dal/api";
 import Item from "./Item";
-import {setAuthUserData} from "../../redux/authReducer";
+import {getAuthUserData} from "../../redux/authReducer";
+import {Redirect} from "react-router-dom";
 
 class ItemContainer extends React.Component {
 
     componentDidMount() {
-        // this.restoreState();
         this.props.setTodolists();
-        authAPI.authMe()
-            .then(res => {
-                if (res.resultCode === 0) {
-                    let {id, email, login} = res.data;
-                    this.props.setAuthUserData(id, email, login);
-                }
-            })
-        // this.props.setAuthUserData();
+        this.props.setAuthUserData();
     };
 
-    /*restoreState = () => {
-        this.props.setTodolists();
-    };*/
-
     render() {
+
+        /*if(!this.props.isAuth){
+            return <Redirect to='/login'/>
+        }*/
 
         return (
             <Item {...this.props} />
@@ -51,10 +43,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(thunk);
         },
         setAuthUserData: (id, login, email) => {
-            const action = setAuthUserData(id, login, email);
-            dispatch(action);
-            /*const thunk = getAuthUserData(id, login, email);
-            dispatch(thunk);*/
+            const thunk = getAuthUserData(id, login, email);
+            dispatch(thunk);
         }
     }
 };
