@@ -10,16 +10,14 @@
 .loginForm{
     display: flex;
     flex-direction: column;
-    width: 450px;
-    height: 300px;
-    margin: 2% 0;
+    width: 250px;
+    height: 250px;
 }
 
 .loginForm input{
     width: 250px;
-    height: 30px;
+    height: 20px;
     border: 1px solid #616161;
-    margin: 2% 0;
     border-radius: 5px;
     background-color: white;
 }
@@ -33,5 +31,16 @@
     width: 60px;
     border-radius: 5px;
     border: 1px solid #616161;
-    height: 25px;
+    height: 30px;
+    cursor: pointer;
+    outline: none;
+}
+
+.loginForm button:hover{
+    color: #008fe1;
+    border: 1px solid #008fe1;
+}
+
+.testData span{
+    font-weight: 700;
 }

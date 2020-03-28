@@ -2,7 +2,7 @@ import React from 'react';
 import {addTodoListThunkCreator, setTodoListThunkCreator} from "../../redux/reducer";
 import {connect} from "react-redux";
 import Item from "./Item";
-import {getAuthUserData} from "../../redux/authReducer";
+import {getAuthUserData, logout} from "../../redux/authReducer";
 import {Redirect} from "react-router-dom";
 
 class ItemContainer extends React.Component {
@@ -14,9 +14,9 @@ class ItemContainer extends React.Component {
 
     render() {
 
-        /*if(!this.props.isAuth){
+        if(!this.props.isAuth){
             return <Redirect to='/login'/>
-        }*/
+        }
 
         return (
             <Item {...this.props} />
@@ -44,6 +44,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         setAuthUserData: (id, login, email) => {
             const thunk = getAuthUserData(id, login, email);
+            dispatch(thunk);
+        },
+        logout: () => {
+            const thunk = logout();
             dispatch(thunk);
         }
     }

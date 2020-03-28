@@ -49,5 +49,19 @@ export const authAPI = {
                 return response.data
             });
         return promise;
+    },
+   login(email, password, rememberMe = false){
+        let promise = instance.post('/auth/login', {email, password, rememberMe})
+            .then(response => {
+                return response.data
+            });
+        return promise;
+    },
+    logout(){
+        let promise = instance.delete('/auth/login')
+            .then(response => {
+                return response.data
+            });
+        return promise;
     }
 };

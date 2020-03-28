@@ -150,21 +150,3 @@ export const setTodoListThunkCreator = () => (dispatch) => {
             dispatch(setTodolist(res.data));
         });
 };
-
-/*
-export const restoreState = (dispatch) => {
-    api.getTodolists()
-        .then(res => {
-            dispatch(setTodolist(res.data));
-        });
-};
-
-export const addTodoList = (title) => {
-    return (dispatch) => {
-        api.createTodolists(title)
-            .then(res => {
-                let todolists = res.data.data.item;
-                dispatch(addTodolist(todolists));
-            });
-    };
-}*/

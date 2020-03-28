@@ -23,7 +23,11 @@ class Item extends React.Component {
             <div className={mod.item}>
                 <div className={mod.itemHeader}>
                     <AddNewItemForm addNewTitle={this.addNewTodolist}/>
-                    {this.props.isAuth ? <div>{this.props.login}</div> : <div>Login</div>}
+                    {this.props.isAuth
+                        ? <div>{this.props.login}
+                            <div onClick={this.props.logout} className={mod.logout}>logout</div>
+                        </div>
+                        : <div>Login</div>}
                 </div>
                 <div className={mod.App}>
                     {todolists}

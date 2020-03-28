@@ -34,17 +34,20 @@ export const getAuthUserData = () => (dispatch) => {
         })
 };
 
-/*export const getAuthUserData = () => async (dispatch) => {
-    let data = await authAPI.authMe();
-    if (data.resultCode === 0) {
-        let {id, email, login} = data.data;
-        dispatch(setAuthUserData(id, email, login, true));
-    }
-};*/
+export const login = (email, password, rememberMe) => (dispatch) => {
+    authAPI.login(email, password, rememberMe)
+        .then(res => {
+            if (res.resultCode === 0) {
+                dispatch(getAuthUserData());
+            }
+        })
+};
 
-/*
-export const initializingApp = () => async (dispatch) => {
-    let promise = dispatch(getAuthUserData());
-    await Promise.all([promise]);
-    dispatch(successInitializing());
-};*/
+export const logout = () => (dispatch) => {
+    authAPI.logout()
+        .then(res => {
+            if (res.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null, false));
+            }
+        })
+};

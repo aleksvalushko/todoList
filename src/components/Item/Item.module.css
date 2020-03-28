@@ -13,3 +13,12 @@
     display: flex;
     justify-content: space-between;
 }
+
+.logout{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.logout:hover{
+    color: #008fe1;
+}
