@@ -5,12 +5,9 @@ import AddNewItemForm from "../TodoListHeader/AddNewItemForm";
 import {connect} from 'react-redux';
 import mod from './TodoList.module.css';
 import {
-    addTaskThunkCreator,
-    changeTask, changeTodolist,
-    deleteTask,
-    deleteTodolist, loadTasksThunkCreator
+    addTaskTC, changeTaskTC, changeTodoListTC,
+    deleteTaskTC, deleteTodolistTC, loadTasksTC
 } from "../../../redux/reducer";
-import {api} from "../../../dal/api";
 import basket from "../../../images/basket.svg";
 import TodoListTitle from "../TodoListHeader/TodoListTitle";
 
@@ -44,22 +41,15 @@ class TodoList extends React.Component {
     };
 
     changeTask = (taskId, obj) => {
-        this.props.tasks.forEach(t => {
-
-            if (t.id === taskId) {
-                api.updateTask(t, obj)
-                    .then(res => {
-                        this.props.changeTask(this.props.id, taskId, obj)
-                    });
-            }
+        let changedTask = this.props.tasks.find(task => {
+            return task.id === taskId;
         });
+        let task = {...changedTask, ...obj};
+        this.props.changeTask(taskId, this.props.id, task, obj);
     };
 
-    changeTodolist = (todolistId, newTodolistTitle) => {
-        api.updateTodolist(this.props.id, newTodolistTitle)
-            .then(res => {
-                this.props.changeTodolist(this.props.id, this.props.title);
-            })
+    changeTodolist = (title) => {
+        this.props.changeTodolist(this.props.id, title);
     };
 
     changeIsDoneStatus = (taskId, status) => {
@@ -71,17 +61,11 @@ class TodoList extends React.Component {
     };
 
     deleteTask = (taskId) => {
-        api.deleteTask(taskId)
-            .then(res => {
-                this.props.deleteTask(this.props.id, taskId);
-            });
+        this.props.deleteTask(this.props.id, taskId);
     };
 
     deleteTodolist = () => {
-        api.deleteTodolist(this.props.id)
-            .then(res => {
-                this.props.deleteTodolist(this.props.id);
-            });
+        this.props.deleteTodolist(this.props.id);
     };
 
     render = () => {
@@ -98,7 +82,7 @@ class TodoList extends React.Component {
                         }} className={mod.todoListDeleteButton}><img src={basket} alt="basket"/>
                         </button>
                     </div>
-                    <AddNewItemForm addNewTitle={this.addTask} />
+                    <AddNewItemForm addNewTitle={this.addTask}/>
                     <div className={mod.todoListContent}>
                         <TodoListTasks changeIsDoneStatus={this.changeIsDoneStatus}
                                        changeTitle={this.changeTitle}
@@ -112,17 +96,6 @@ class TodoList extends React.Component {
                                            } else {
                                                return t.status === 2;
                                            }
-                                           /*switch (this.state.filterValue){
-                                               case 'All':
-                                                   return true;
-                                               case 'Active':
-                                                   return t.isDone === false;
-                                               case 'Completed':
-                                                   return t.isDone === true;
-                                               default:
-                                                   return false;
-                                                   break;
-                                           }*/
                                        })}/>
                     </div>
                     <TodoListFooter changeFilter={this.changeFilter} filterValue={this.state.filterValue}/>
@@ -135,28 +108,22 @@ class TodoList extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTask: (newText, todolistId) => {
-            const thunk = addTaskThunkCreator(newText, todolistId);
-            dispatch(thunk);
+            dispatch(addTaskTC(newText, todolistId));
         },
         loadTasks: (todolistId) => {
-            const thunk = loadTasksThunkCreator(todolistId);
-            dispatch(thunk);
+            dispatch(loadTasksTC(todolistId));
         },
-        changeTask: (todolistId, taskId, obj) => {
-            const action = changeTask(todolistId, taskId, obj);
-            dispatch(action)
-        },
-        deleteTodolist: (todolistId) => {
-            const action = deleteTodolist(todolistId);
-            dispatch(action);
+        changeTask: (taskId, todolistId, task, obj) => {
+            dispatch(changeTaskTC(taskId, todolistId, task, obj));
         },
         deleteTask(todolistId, taskId) {
-            const action = deleteTask(todolistId, taskId);
-            dispatch(action);
+            dispatch(deleteTaskTC(todolistId, taskId));
+        },
+        deleteTodolist: (todolistId) => {
+            dispatch(deleteTodolistTC(todolistId));
         },
         changeTodolist(todolistId, newTodolistTitle) {
-            const action = changeTodolist(todolistId, newTodolistTitle);
-            dispatch(action);
+            dispatch(changeTodoListTC(todolistId, newTodolistTitle));
         }
     }
 };

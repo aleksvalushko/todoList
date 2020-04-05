@@ -19,7 +19,7 @@ class TodoListTitle extends React.Component {
     };
 
     deactiveEditMode = () => {
-        this.props.changeTodolist(this.props.id, this.state.title);
+        this.props.changeTodolist(this.state.title);
         this.setState({
             editMode: false
         })

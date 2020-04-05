@@ -1,5 +1,5 @@
 import React from 'react';
-import {addTodoListThunkCreator, setTodoListThunkCreator} from "../../redux/reducer";
+import {addTodoListTC, setTodoListTC} from "../../redux/reducer";
 import {connect} from "react-redux";
 import Item from "./Item";
 import {getAuthUserData, logout} from "../../redux/authReducer";
@@ -35,11 +35,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTodolist: (newTodoList) => {
-            const thunk = addTodoListThunkCreator(newTodoList);
+            const thunk = addTodoListTC(newTodoList);
             dispatch(thunk);
         },
         setTodolists: (todolists) => {
-            const thunk = setTodoListThunkCreator(todolists);
+            const thunk = setTodoListTC(todolists);
             dispatch(thunk);
         },
         setAuthUserData: (id, login, email) => {

@@ -24,6 +24,8 @@ export const authReducer = (state = initState, action) => {
     }
 };
 
+//ThunkCreators
+
 export const getAuthUserData = () => (dispatch) => {
     authAPI.authMe()
         .then(res => {
