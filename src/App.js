@@ -10,7 +10,7 @@ class App extends React.Component {
 
         return (
             <div className={mod.appWrapper}>
-                <Route path='/todolist/login' render={() => <Login />}/>
+                <Route path='/login' render={() => <Login />}/>
                 <Route path='/todolist' render={() => <ConnectedItemContainer />}/>
 
             </div>

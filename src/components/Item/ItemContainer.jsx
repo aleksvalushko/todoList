@@ -15,7 +15,7 @@ class ItemContainer extends React.Component {
     render() {
 
         if(!this.props.isAuth){
-            return <Redirect to='/todolist/login'/>
+            return <Redirect to='/login'/>
         }
 
         return (
