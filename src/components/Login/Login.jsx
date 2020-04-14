@@ -28,7 +28,7 @@ let Login = (props) => {
     };
 
     if(props.isAuth){
-        return <Redirect to='/todolist'/>
+        return <Redirect to='/'/>
     }
 
     return (
