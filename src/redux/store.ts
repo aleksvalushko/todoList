@@ -1,17 +1,17 @@
-import React from 'react';
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {todolistReducer} from "./redux/reducer";
+import {todolistReducer} from "./reducer";
 import { reducer as formReducer } from 'redux-form';
 import thunkMiddleware from 'redux-thunk';
-import {authReducer} from "./redux/authReducer";
+import {authReducer} from "./authReducer";
 
-let reducers = combineReducers({
+let rootReducers = combineReducers({
    reducer: todolistReducer,
    auth: authReducer,
    form: formReducer
 });
 
-const store = createStore(reducers, applyMiddleware(thunkMiddleware));
-window.store = store;
+export type AppStateType = ReturnType<typeof rootReducers>
+
+const store = createStore(rootReducers, applyMiddleware(thunkMiddleware));
 
 export default store;

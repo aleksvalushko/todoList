@@ -1,46 +1,44 @@
-.login{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
 }
 
-.loginForm{
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    height: 250px;
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 250px;
+}
+.loginForm input {
+  width: 250px;
+  height: 20px;
+  border: 1px solid #616161;
+  border-radius: 5px;
+  background-color: white;
+}
+.loginForm input[type=checkbox] {
+  width: 10%;
+  height: 15px;
+}
+.loginForm button {
+  width: 60px;
+  border-radius: 5px;
+  border: 1px solid #616161;
+  height: 30px;
+  cursor: pointer;
+  outline: none;
+}
+.loginForm button:hover {
+  color: #008fe1;
+  border: 1px solid #008fe1;
 }
 
-.loginForm input{
-    width: 250px;
-    height: 20px;
-    border: 1px solid #616161;
-    border-radius: 5px;
-    background-color: white;
+.testData span {
+  font-weight: 700;
 }
 
-.loginForm input[type=checkbox]{
-    width: 10%;
-    height: 15px;
-}
-
-.loginForm button{
-    width: 60px;
-    border-radius: 5px;
-    border: 1px solid #616161;
-    height: 30px;
-    cursor: pointer;
-    outline: none;
-}
-
-.loginForm button:hover{
-    color: #008fe1;
-    border: 1px solid #008fe1;
-}
-
-.testData span{
-    font-weight: 700;
-}
+/*# sourceMappingURL=Login.module.css.map */

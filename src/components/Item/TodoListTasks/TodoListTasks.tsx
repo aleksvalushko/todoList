@@ -1,9 +1,17 @@
 import React from 'react';
 import TodoListTask from "./TodoListTask";
+import {ITask} from "../../../types/types.js";
 
-class TodoListTasks extends React.Component {
+interface IProps {
+    tasks: Array<ITask>
+    changeTitle: (id: string, title: string) => void
+    changeIsDoneStatus: (id: string, status: number) => void
+    deleteTask: (id: string) => void
+}
 
-    constructor(props) {
+class TodoListTasks extends React.Component<IProps> {
+
+    constructor(props: IProps) {
         super(props)
     }
 

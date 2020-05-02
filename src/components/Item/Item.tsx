@@ -1,15 +1,24 @@
 import React from 'react';
-import mod from './Item.module.css';
+import mod from './Item.module.sass';
 import TodoList from "./TodoList/TodoList";
 import AddNewItemForm from "./TodoListHeader/AddNewItemForm";
+import {ITodolist} from "../../types/types.js";
 
-class Item extends React.Component {
+interface IProps {
+    addTodolist: (title: string) => void
+    todolists: Array<ITodolist>
+    isAuth :boolean
+    login: string | null
+    logout: () => void
+}
+
+class Item extends React.Component<IProps> {
 
     state = {
         newTodoListId: 0
     };
 
-    addNewTodolist = (title) => {
+    addNewTodolist = (title: string) => {
         this.props.addTodolist(title);
     };
 

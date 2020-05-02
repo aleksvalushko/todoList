@@ -3,17 +3,35 @@ import TodoListTasks from "../TodoListTasks/TodoListTasks";
 import TodoListFooter from "../TodoListFooter/TodoListFooter";
 import AddNewItemForm from "../TodoListHeader/AddNewItemForm";
 import {connect} from 'react-redux';
-import mod from './TodoList.module.css';
+import mod from './TodoList.module.sass';
 import {
     addTaskTC, changeTaskTC, changeTodoListTC,
     deleteTaskTC, deleteTodolistTC, loadTasksTC
 } from "../../../redux/reducer";
 import basket from "../../../images/basket.svg";
 import TodoListTitle from "../TodoListHeader/TodoListTitle";
+import {ITask} from "../../../types/types.js";
 
-class TodoList extends React.Component {
+interface IProps {
+    loadTasks: (id: string) => void
+    addTask: (newText: string, id: string) => void
+    changeTask: (taskId: string, id: string, task: ITask, obj: any) => void
+    changeTodolist: (id: string, title: string) => void
+    deleteTask: (taskId: string, id: string) => void
+    deleteTodolist: (id: string) => void
+    title: string
+    id: string
+    tasks: Array<ITask>
+}
 
-    constructor(props) {
+interface ILocalState {
+    filterValue: string
+    nextTaskId: number
+}
+
+class TodoList extends React.Component<IProps, ILocalState> {
+
+    constructor(props: IProps) {
         super(props);
     }
 
@@ -30,17 +48,17 @@ class TodoList extends React.Component {
         this.props.loadTasks(this.props.id);
     };
 
-    addTask = (newText) => {
+    addTask = (newText: string) => {
         this.props.addTask(newText, this.props.id);
     };
 
-    changeFilter = (newFilterValue) => {
+    changeFilter = (newFilterValue: string) => {
         this.setState({
             filterValue: newFilterValue
         })
     };
 
-    changeTask = (taskId, obj) => {
+    changeTask = (taskId: string, obj: any) => {
         let changedTask = this.props.tasks.find(task => {
             return task.id === taskId;
         });
@@ -48,19 +66,19 @@ class TodoList extends React.Component {
         this.props.changeTask(taskId, this.props.id, task, obj);
     };
 
-    changeTodolist = (title) => {
+    changeTodolist = (title: string) => {
         this.props.changeTodolist(this.props.id, title);
     };
 
-    changeIsDoneStatus = (taskId, status) => {
+    changeIsDoneStatus = (taskId: string, status: number) => {
         this.changeTask(taskId, {status: status})
     };
 
-    changeTitle = (taskId, title) => {
+    changeTitle = (taskId: string, title: string) => {
         this.changeTask(taskId, {title: title})
     };
 
-    deleteTask = (taskId) => {
+    deleteTask = (taskId: string) => {
         this.props.deleteTask(this.props.id, taskId);
     };
 
@@ -86,7 +104,7 @@ class TodoList extends React.Component {
                     <div className={mod.todoListContent}>
                         <TodoListTasks changeIsDoneStatus={this.changeIsDoneStatus}
                                        changeTitle={this.changeTitle}
-                                       changeTask={this.changeTask}
+                                       /*changeTask={this.changeTask}*/
                                        deleteTask={this.deleteTask}
                                        tasks={tasks.filter(t => {
                                            if (this.state.filterValue === 'All') {
@@ -105,24 +123,24 @@ class TodoList extends React.Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Function) => {
     return {
-        addTask: (newText, todolistId) => {
+        addTask: (newText: string, todolistId: string) => {
             dispatch(addTaskTC(newText, todolistId));
         },
-        loadTasks: (todolistId) => {
+        loadTasks: (todolistId: string) => {
             dispatch(loadTasksTC(todolistId));
         },
-        changeTask: (taskId, todolistId, task, obj) => {
+        changeTask: (taskId: string, todolistId: string, task: ITask, obj: any) => {
             dispatch(changeTaskTC(taskId, todolistId, task, obj));
         },
-        deleteTask(todolistId, taskId) {
+        deleteTask(todolistId: string, taskId: string) {
             dispatch(deleteTaskTC(todolistId, taskId));
         },
-        deleteTodolist: (todolistId) => {
+        deleteTodolist: (todolistId: string) => {
             dispatch(deleteTodolistTC(todolistId));
         },
-        changeTodolist(todolistId, newTodolistTitle) {
+        changeTodolist(todolistId: string, newTodolistTitle: string) {
             dispatch(changeTodoListTC(todolistId, newTodolistTitle));
         }
     }

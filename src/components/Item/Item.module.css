@@ -1,33 +1,33 @@
 .App {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  .App {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 5%;
+  }
 }
-
-@media screen and (max-width: 700px){
-    .App{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-bottom: 5%;
-    }
-}
-
 .error {
-    border-color: red;
+  border-color: red;
 }
 
-.itemHeader{
-    display: flex;
-    justify-content: space-between;
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
 }
 
-.logout{
-    text-decoration: underline;
-    cursor: pointer;
+.logout {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.logout:hover {
+  color: #008fe1;
 }
 
-.logout:hover{
-    color: #008fe1;
-}
+/*# sourceMappingURL=Item.module.css.map */

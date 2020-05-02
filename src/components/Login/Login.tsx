@@ -1,16 +1,32 @@
 import React from 'react';
-import mod from './Login.module.css';
+import mod from './Login.module.sass';
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../utils/validators";
 import {Input} from "../FormControl/FormControl";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {login} from "../../redux/authReducer";
+import {AppStateType} from "../../redux/store";
+
+interface IProps {
+    isAuth: boolean
+    login: Function
+}
+
+interface IMapStateToProps {
+    isAuth: boolean
+}
+
+interface IFormData {
+    email: string
+    password: string
+    rememberMe: boolean
+}
 
 const maxLength20 = maxLengthCreator(20);
 const maxLength40 = maxLengthCreator(40);
 
-export let LoginForm = (props) => {
+let LoginForm = (props: any) => {
     return <form onSubmit={props.handleSubmit} className={mod.loginForm}>
         <Field component={Input} name={'email'} placeholder={'Email'}
                validate={[required, maxLength40]}/>
@@ -21,9 +37,9 @@ export let LoginForm = (props) => {
     </form>
 };
 
-let Login = (props) => {
+let Login = (props: IProps) => {
 
-    let onSubmit = (formData) => {
+    let onSubmit = (formData: any) => {
         props.login(formData.email, formData.password, formData.rememberMe)
     };
 
@@ -44,11 +60,11 @@ let Login = (props) => {
     );
 };
 
-export let LoginReducerForm = reduxForm({
+let LoginReducerForm = reduxForm({
     form: 'login'
 })(LoginForm);
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType): IMapStateToProps => ({
     isAuth: state.auth.isAuth
 });
 

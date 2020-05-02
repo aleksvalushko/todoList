@@ -1,27 +1,99 @@
 import {api} from "../dal/api";
+import {ITask, ITodolist} from "../types/types.js";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "./store";
 
 const ADD_TODOLIST = 'TodoList/Reducer/ADD_TODOLIST';
-const addTodolist = (newTodoList) => ({type: ADD_TODOLIST, newTodoList});
-const DELETE_TODOLIST = 'TodoList/Reducer/DELETE_TODOLIST';
-const deleteTodolist = (todolistId) => ({type: DELETE_TODOLIST, todolistId});
-const ADD_TASK = 'TodoList/Reducer/ADD_TASK';
-const addTask = (newTask, todolistId) => ({type: ADD_TASK, newTask, todolistId});
-const CHANGE_TASK = 'TodoList/Reducer/CHANGE_TASK';
-const changeTask = (taskId, obj, todolistId) => ({type: CHANGE_TASK, taskId, obj, todolistId});
-const DELETE_TASK = 'TodoList/Reducer/DELETE_TASK';
-const deleteTask = (todolistId, taskId) => ({type: DELETE_TASK, todolistId, taskId});
-const SET_TODOLISTS = 'TodoList/Reducer/SET_TODOLISTS';
-const setTodolist = (todolists) => ({type: SET_TODOLISTS, todolists});
-const SET_TASKS = 'TodoList/Reducer/SET_TASKS';
-const setTasks = (tasks, todolistId) => ({type: SET_TASKS, tasks, todolistId});
-const CHANGE_TODOLIST = 'TodoList/Reducer/CHANGE_TODOLIST';
-const changeTodolist = (todolistId, newTodolistTitle) => ({type: CHANGE_TODOLIST, todolistId, newTodolistTitle});
 
-const initState = {
+interface IAddTodolist {
+    type: typeof ADD_TODOLIST
+    newTodoList: ITodolist
+}
+
+const addTodolist = (newTodoList: ITodolist): IAddTodolist => ({type: ADD_TODOLIST, newTodoList});
+
+const DELETE_TODOLIST = 'TodoList/Reducer/DELETE_TODOLIST';
+
+interface IDeleteTodolist {
+    type: typeof DELETE_TODOLIST
+    todolistId: string
+}
+
+const deleteTodolist = (todolistId: string): IDeleteTodolist => ({type: DELETE_TODOLIST, todolistId});
+
+const ADD_TASK = 'TodoList/Reducer/ADD_TASK';
+
+interface IAddTask {
+    type: typeof ADD_TASK
+    newTask: ITask
+    todolistId: string
+}
+
+const addTask = (newTask: ITask, todolistId: string): IAddTask => ({type: ADD_TASK, newTask, todolistId});
+
+const CHANGE_TASK = 'TodoList/Reducer/CHANGE_TASK';
+
+interface IChangeTask {
+    type: typeof CHANGE_TASK
+    taskId: string
+    obj: any
+    todolistId: string
+}
+
+const changeTask = (taskId: string, obj: any, todolistId: string): IChangeTask => ({type: CHANGE_TASK, taskId, obj, todolistId});
+
+const DELETE_TASK = 'TodoList/Reducer/DELETE_TASK';
+
+interface IDeleteTask {
+    type: typeof DELETE_TASK
+    todolistId: string
+    taskId: string
+}
+
+const deleteTask = (todolistId: string, taskId: string): IDeleteTask => ({type: DELETE_TASK, todolistId, taskId});
+
+const SET_TODOLISTS = 'TodoList/Reducer/SET_TODOLISTS';
+
+interface ISetTodolists {
+    type: typeof SET_TODOLISTS
+    todolists: Array<ITodolist>
+}
+
+const setTodolist = (todolists: Array<ITodolist>): ISetTodolists => ({type: SET_TODOLISTS, todolists});
+
+const SET_TASKS = 'TodoList/Reducer/SET_TASKS';
+
+interface ISetTasks {
+    type: typeof SET_TASKS
+    tasks: Array<ITask>
+    todolistId: string
+}
+
+const setTasks = (tasks: Array<ITask>, todolistId: string): ISetTasks => ({type: SET_TASKS, tasks, todolistId});
+
+const CHANGE_TODOLIST = 'TodoList/Reducer/CHANGE_TODOLIST';
+
+interface IChangeTodolist {
+    type: typeof CHANGE_TODOLIST
+    todolistId: string
+    newTodolistTitle: string
+}
+
+const changeTodolist = (todolistId: string, newTodolistTitle: string): IChangeTodolist =>
+    ({type: CHANGE_TODOLIST, todolistId, newTodolistTitle});
+
+type TodolistReducerActionTypes = IAddTodolist | IDeleteTodolist | IAddTask | IChangeTask
+    | IDeleteTask | ISetTodolists | ISetTasks | IChangeTodolist;
+
+interface IInitState {
+    todolists: Array<ITodolist>
+}
+
+const initState: IInitState = {
     todolists: []
 };
 
-export const todolistReducer = (state = initState, action) => {
+export const todolistReducer = (state: IInitState = initState, action: TodolistReducerActionTypes): IInitState => {
     switch (action.type) {
         case ADD_TODOLIST:
             return {
@@ -116,8 +188,11 @@ export const todolistReducer = (state = initState, action) => {
 
 //ThunkCreators
 
-export const loadTasksTC = (todolistId) => {
-    return (dispatch) => {
+type ThunkActionType = ThunkAction<void, AppStateType, unknown, TodolistReducerActionTypes>
+type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, TodolistReducerActionTypes>
+
+export const loadTasksTC = (todolistId: string): ThunkActionType => {
+    return (dispatch: ThunkDispatchType) => {
         api.getTasks(todolistId)
             .then(res => {
                 let allTasks = res.data.items;
@@ -126,8 +201,8 @@ export const loadTasksTC = (todolistId) => {
     };
 };
 
-export const addTaskTC = (newText, todolistId) => {
-    return (dispatch) => {
+export const addTaskTC = (newText: string, todolistId: string): ThunkActionType => {
+    return (dispatch: ThunkDispatchType) => {
         api.createTask(newText, todolistId)
             .then(res => {
                 let newTask = res.data.data.item;
@@ -136,8 +211,8 @@ export const addTaskTC = (newText, todolistId) => {
     }
 };
 
-export const changeTaskTC = (taskId, todolistId, task, obj) => {
-    return (dispatch) => {
+export const changeTaskTC = (taskId: string, todolistId: string, task: ITask, obj: any): ThunkActionType => {
+    return (dispatch: ThunkDispatchType) => {
         api.updateTask(task, obj)
             .then(res => {
                 dispatch(changeTask(taskId, obj, todolistId));
@@ -145,22 +220,24 @@ export const changeTaskTC = (taskId, todolistId, task, obj) => {
     }
 };
 
-export const deleteTaskTC = (todolistId, taskId) => (dispatch) => {
+export const deleteTaskTC = (todolistId: string, taskId: string): ThunkActionType =>
+    (dispatch: ThunkDispatchType) => {
     api.deleteTask(taskId)
         .then(res => {
             dispatch(deleteTask(todolistId, taskId));
         });
 };
 
-export const setTodoListTC = () => (dispatch) => {
+export const setTodoListTC = (): ThunkActionType =>
+    (dispatch: ThunkDispatchType) => {
     api.getTodolists()
         .then(res => {
             dispatch(setTodolist(res.data));
         });
 };
 
-export const addTodoListTC = (title) => {
-    return (dispatch) => {
+export const addTodoListTC = (title: string): ThunkActionType => {
+    return (dispatch: ThunkDispatchType) => {
         api.createTodolists(title)
             .then(res => {
                 let todolists = res.data.data.item;
@@ -169,18 +246,17 @@ export const addTodoListTC = (title) => {
     }
 };
 
-export const changeTodoListTC = (todolistId, newTodolistTitle) => {
-    return (dispatch) => {
-        debugger
+export const changeTodoListTC = (todolistId: string, newTodolistTitle: string): ThunkActionType => {
+    return (dispatch: ThunkDispatchType) => {
         api.updateTodolist(todolistId, newTodolistTitle)
             .then(res => {
-                debugger
                 dispatch(changeTodolist(todolistId, newTodolistTitle));
             })
     }
 };
 
-export const deleteTodolistTC = (todolistId) => (dispatch) => {
+export const deleteTodolistTC = (todolistId: string): ThunkActionType =>
+    (dispatch: ThunkDispatchType) => {
     api.deleteTodolist(todolistId)
         .then(res => {
             dispatch(deleteTodolist(todolistId));

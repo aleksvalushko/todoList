@@ -1,10 +1,18 @@
 import React from 'react';
-import mod from './TodoListTask.module.css';
+import mod from './TodoListTask.module.sass';
 import basket from '../../../images/basket.svg';
+import {ITask} from "../../../types/types.js";
 
-class TodoListTask extends React.Component {
+interface IProps {
+    task: ITask
+    changeTitle: (id: string, title: string) => void
+    changeIsDoneStatus: (id: string, status: number) => void
+    deleteTask: (id: string) => void
+}
 
-    constructor(props) {
+class TodoListTask extends React.Component<IProps> {
+
+    constructor(props: IProps) {
         super(props)
     }
 
@@ -26,12 +34,12 @@ class TodoListTask extends React.Component {
         });
     };
 
-    onIsDoneChanged = (e) => {
+    onIsDoneChanged = (e: React.FormEvent<HTMLInputElement>) => {
         let status = e.currentTarget.checked ? 2 : 0;
         this.props.changeIsDoneStatus(this.props.task.id, status);
     };
 
-    onTitleChanged = (e) => {
+    onTitleChanged = (e: React.FormEvent<HTMLInputElement>) => {
         this.setState({title: e.currentTarget.value});
     };
 

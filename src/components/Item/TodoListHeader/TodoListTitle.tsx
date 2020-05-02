@@ -1,9 +1,19 @@
 import React from 'react';
-import mod from './TodoListTitle.module.css';
+import mod from './TodoListTitle.module.sass';
 
-class TodoListTitle extends React.Component {
+interface IProps {
+    title: string
+    changeTodolist: (title: string) => void
+}
 
-    constructor(props) {
+interface ILocalState {
+    title: string
+    editMode: boolean
+}
+
+class TodoListTitle extends React.Component<IProps, ILocalState> {
+
+    constructor(props: IProps) {
         super(props);
     }
 
@@ -25,7 +35,7 @@ class TodoListTitle extends React.Component {
         })
     };
 
-    changeTodolistTitle = (e) => {
+    changeTodolistTitle = (e: React.FormEvent<HTMLInputElement>) => {
         this.setState({title: e.currentTarget.value})
     };
 

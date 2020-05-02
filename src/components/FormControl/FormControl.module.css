@@ -1,11 +1,13 @@
-.formControl{
-    margin: 3% 0;
+.formControl {
+  margin: 3% 0;
 }
 
-.formControl.error input{
-    border: 1px solid red;
+.formControl.error input {
+  border: 1px solid red;
 }
 
-.formControl.error span{
-    color: red;
+.formControl.error span {
+  color: red;
 }
+
+/*# sourceMappingURL=FormControl.module.css.map */

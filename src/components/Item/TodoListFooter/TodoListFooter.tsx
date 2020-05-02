@@ -1,7 +1,12 @@
 import React from 'react';
-import mod from './TodoListFooter.module.css'
+import mod from './TodoListFooter.module.sass'
 
-class TodoListFooter extends React.Component{
+interface IProps {
+    changeFilter: (value: string) => void
+    filterValue: string
+}
+
+class TodoListFooter extends React.Component<IProps>{
 
     state = {
         isHidden: false

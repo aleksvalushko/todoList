@@ -1,18 +1,22 @@
 import React from 'react';
-import mod from './TodoListInputForm.module.css';
+import mod from './TodoListInputForm.module.sass';
 
-class AddNewItemForm extends React.Component {
+interface IProps {
+    addNewTitle: (newTitle: string) => void
+}
+
+class AddNewItemForm extends React.Component<IProps> {
 
     state = {
         error: false,
         title: ''
     };
 
-    constructor(props) {
+    constructor(props: IProps) {
         super(props);
     }
 
-    onInputTextChange = (e) => {
+    onInputTextChange = (e: React.FormEvent<HTMLInputElement>) => {
         this.setState({
             error: false,
             title: e.currentTarget.value
@@ -34,7 +38,7 @@ class AddNewItemForm extends React.Component {
         }
     };
 
-    onPressEnter = (e) => {
+    onPressEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
             this.onAddNewItemTitle();
         }

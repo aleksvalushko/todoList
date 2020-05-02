@@ -4,6 +4,13 @@
   "private": true,
   "homepage": "http://aleksvalushko.github.io/todolist",
   "dependencies": {
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.4",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/redux-form": "^8.2.3",
     "axios": "^0.19.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -12,7 +19,8 @@
     "react-scripts": "3.0.1",
     "redux": "^4.0.4",
     "redux-form": "^8.3.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "typescript": "^3.8.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,6 +46,8 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^2.2.0",
+    "node-sass": "^4.14.0",
+    "sass-loader": "^8.0.2"
   }
 }
