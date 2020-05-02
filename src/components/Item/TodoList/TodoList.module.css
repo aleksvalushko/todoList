@@ -1,5 +1,6 @@
 .App {
   margin: 0 2.5%;
+  display: flex;
 }
 
 .todoList {
@@ -44,6 +45,38 @@
   background-color: white;
   max-width: 100%;
   min-height: 45vh;
+}
+
+@media screen and (max-width: 600px) {
+  .todoList {
+    min-height: 50vh;
+  }
+
+  .todoListHeader {
+    font-size: 23px;
+  }
+
+  .todoListContent {
+    min-height: 35vh;
+  }
+}
+@media screen and (max-width: 400px) {
+  .App {
+    margin: 0;
+  }
+
+  .todoList {
+    width: 280px;
+  }
+
+  .todoListHeader {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .todoListDeleteButton {
+    width: 15%;
+  }
 }
 
 /*# sourceMappingURL=TodoList.module.css.map */

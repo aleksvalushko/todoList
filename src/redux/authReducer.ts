@@ -45,7 +45,6 @@ export const getAuthUserData = (): ThunkActionType =>
     authAPI.authMe()
         .then(res => {
             if (res.resultCode === 0) {
-                debugger
                 let {id, email, login} = res.data;
                 dispatch(setAuthUserData(id, email, login, true));
             }

@@ -76,4 +76,15 @@
   color: #82829c;
 }
 
+@media screen and (max-width: 600px) {
+  .todoListTask {
+    height: 6vh;
+  }
+}
+@media screen and (max-width: 400px) {
+  .todoListTaskDelete {
+    width: 15%;
+  }
+}
+
 /*# sourceMappingURL=TodoListTask.module.css.map */
