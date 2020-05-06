@@ -197,13 +197,6 @@ type ThunkActionType = ThunkAction<void, AppStateType, unknown, TodolistReducerA
 type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, TodolistReducerActionTypes>
 
 export const loadTasksTC = (todolistId: string): ThunkActionType => {
-    /*return (dispatch: ThunkDispatchType) => {
-        api.getTasks(todolistId)
-            .then(res => {
-                let allTasks = res.data.items;
-                dispatch(setTasks(allTasks, todolistId));
-            });
-    };*/
     return async (dispatch: ThunkDispatchType) => {
         let response = await api.getTasks(todolistId);
         let allTasks = response.data.items;
