@@ -7,12 +7,6 @@ const instance = axios.create({
     headers: {'API-KEY': '2a70584b-20f7-4ff5-8c15-684fb9f4be7b'}
 });
 
-/*interface IGetTaskResponseType {
-    items: Array<ITask>
-    totalCount: number
-    error: string | null
-}*/
-
 export const api = {
     createTask(newTaskTitle: string, todolistId: string) {
         let promise = instance.post(`/todo-lists/${todolistId}/tasks`,
@@ -20,7 +14,7 @@ export const api = {
         return promise;
     },
     getTasks(taskId: string) {
-        let promise = instance.get/*<IGetTaskResponseType>*/(`/todo-lists/${taskId}/tasks`);
+        let promise = instance.get(`/todo-lists/${taskId}/tasks`);
         return promise;
     },
     updateTask(task: ITask, obj: any) {

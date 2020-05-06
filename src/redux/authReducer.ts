@@ -12,8 +12,8 @@ interface ISetAuthUserData {
 
 const setAuthUserData =
     (userId: number | null, email: string | null, login: string | null, isAuth: boolean): ISetAuthUserData => (
-    {type: SET_AUTH_USER_DATA, payload: {userId, email, login, isAuth}}
-);
+        {type: SET_AUTH_USER_DATA, payload: {userId, email, login, isAuth}}
+    );
 
 const initState: IISAuth = {
     userId: null,
@@ -36,37 +36,30 @@ export const authReducer = (state: IISAuth = initState, action: ISetAuthUserData
 
 //ThunkCreators
 
-
 type ThunkActionType = ThunkAction<void, AppStateType, unknown, ISetAuthUserData>
 type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ISetAuthUserData>
 
 export const getAuthUserData = (): ThunkActionType =>
-    (dispatch: ThunkDispatchType)  => {
-    authAPI.authMe()
-        .then(res => {
-            if (res.resultCode === 0) {
-                let {id, email, login} = res.data;
-                dispatch(setAuthUserData(id, email, login, true));
-            }
-        })
-};
+    async (dispatch: ThunkDispatchType) => {
+        let response = await authAPI.authMe();
+        if (response.resultCode === 0) {
+            let {id, email, login} = response.data;
+            dispatch(setAuthUserData(id, email, login, true));
+        }
+    };
 
 export const login = (email: string, password: string, rememberMe: boolean): ThunkActionType =>
-    (dispatch: ThunkDispatchType) => {
-    authAPI.login(email, password, rememberMe)
-        .then(res => {
-            if (res.resultCode === 0) {
-                dispatch(getAuthUserData());
-            }
-        })
-};
+    async (dispatch: ThunkDispatchType) => {
+        let response = await authAPI.login(email, password, rememberMe);
+        if (response.resultCode === 0) {
+            dispatch(getAuthUserData());
+        }
+    };
 
 export const logout = (): ThunkActionType =>
-    (dispatch: ThunkDispatchType) => {
-    authAPI.logout()
-        .then(res => {
-            if (res.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false));
-            }
-        })
-};
+    async (dispatch: ThunkDispatchType) => {
+        let response = await authAPI.logout();
+        if (response.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null, false));
+        }
+    };

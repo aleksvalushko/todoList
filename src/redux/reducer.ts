@@ -40,7 +40,12 @@ interface IChangeTask {
     todolistId: string
 }
 
-const changeTask = (taskId: string, obj: any, todolistId: string): IChangeTask => ({type: CHANGE_TASK, taskId, obj, todolistId});
+const changeTask = (taskId: string, obj: any, todolistId: string): IChangeTask => ({
+    type: CHANGE_TASK,
+    taskId,
+    obj,
+    todolistId
+});
 
 const DELETE_TASK = 'TodoList/Reducer/DELETE_TASK';
 
@@ -192,73 +197,64 @@ type ThunkActionType = ThunkAction<void, AppStateType, unknown, TodolistReducerA
 type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, TodolistReducerActionTypes>
 
 export const loadTasksTC = (todolistId: string): ThunkActionType => {
-    return (dispatch: ThunkDispatchType) => {
+    /*return (dispatch: ThunkDispatchType) => {
         api.getTasks(todolistId)
             .then(res => {
                 let allTasks = res.data.items;
                 dispatch(setTasks(allTasks, todolistId));
             });
+    };*/
+    return async (dispatch: ThunkDispatchType) => {
+        let response = await api.getTasks(todolistId);
+        let allTasks = response.data.items;
+        dispatch(setTasks(allTasks, todolistId));
     };
 };
 
 export const addTaskTC = (newText: string, todolistId: string): ThunkActionType => {
-    return (dispatch: ThunkDispatchType) => {
-        api.createTask(newText, todolistId)
-            .then(res => {
-                let newTask = res.data.data.item;
-                dispatch(addTask(newTask, todolistId));
-            });
+    return async (dispatch: ThunkDispatchType) => {
+        let response = await api.createTask(newText, todolistId);
+        let newTask = response.data.data.item;
+        dispatch(addTask(newTask, todolistId));
     }
 };
 
 export const changeTaskTC = (taskId: string, todolistId: string, task: ITask, obj: any): ThunkActionType => {
-    return (dispatch: ThunkDispatchType) => {
-        api.updateTask(task, obj)
-            .then(res => {
-                dispatch(changeTask(taskId, obj, todolistId));
-            });
+    return async (dispatch: ThunkDispatchType) => {
+        await api.updateTask(task, obj);
+        dispatch(changeTask(taskId, obj, todolistId));
     }
 };
 
 export const deleteTaskTC = (todolistId: string, taskId: string): ThunkActionType =>
-    (dispatch: ThunkDispatchType) => {
-    api.deleteTask(taskId)
-        .then(res => {
-            dispatch(deleteTask(todolistId, taskId));
-        });
-};
+    async (dispatch: ThunkDispatchType) => {
+        await api.deleteTask(taskId);
+        dispatch(deleteTask(todolistId, taskId));
+    };
 
 export const setTodoListTC = (): ThunkActionType =>
-    (dispatch: ThunkDispatchType) => {
-    api.getTodolists()
-        .then(res => {
-            dispatch(setTodolist(res.data));
-        });
-};
+    async (dispatch: ThunkDispatchType) => {
+        let response = await api.getTodolists();
+        dispatch(setTodolist(response.data));
+    };
 
 export const addTodoListTC = (title: string): ThunkActionType => {
-    return (dispatch: ThunkDispatchType) => {
-        api.createTodolists(title)
-            .then(res => {
-                let todolists = res.data.data.item;
-                dispatch(addTodolist(todolists));
-            });
+    return async (dispatch: ThunkDispatchType) => {
+        let response = await api.createTodolists(title);
+        let todolists = response.data.data.item;
+        dispatch(addTodolist(todolists));
     }
 };
 
 export const changeTodoListTC = (todolistId: string, newTodolistTitle: string): ThunkActionType => {
-    return (dispatch: ThunkDispatchType) => {
-        api.updateTodolist(todolistId, newTodolistTitle)
-            .then(res => {
-                dispatch(changeTodolist(todolistId, newTodolistTitle));
-            })
+    return async (dispatch: ThunkDispatchType) => {
+        await api.updateTodolist(todolistId, newTodolistTitle);
+        dispatch(changeTodolist(todolistId, newTodolistTitle));
     }
 };
 
 export const deleteTodolistTC = (todolistId: string): ThunkActionType =>
-    (dispatch: ThunkDispatchType) => {
-    api.deleteTodolist(todolistId)
-        .then(res => {
-            dispatch(deleteTodolist(todolistId));
-        });
-};
+    async (dispatch: ThunkDispatchType) => {
+        await api.deleteTodolist(todolistId);
+        dispatch(deleteTodolist(todolistId));
+    };
