@@ -1,7 +1,7 @@
 import React from 'react';
 import mod from './TodoListTask.module.sass';
 import basket from '../../../images/basket.svg';
-import {ITask} from "../../../types/types.js";
+import {ITask} from '../../../types/types';
 
 interface IProps {
     task: ITask

@@ -2,7 +2,7 @@ import React from 'react';
 import mod from './Item.module.sass';
 import TodoList from "./TodoList/TodoList";
 import AddNewItemForm from "./TodoListHeader/AddNewItemForm";
-import {ITodolist} from "../../types/types.js";
+import {ITodolist} from "../../types/types";
 
 interface IProps {
     addTodolist: (title: string) => void

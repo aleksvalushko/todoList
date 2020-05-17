@@ -10,7 +10,7 @@ import {
 } from "../../../redux/reducer";
 import basket from "../../../images/basket.svg";
 import TodoListTitle from "../TodoListHeader/TodoListTitle";
-import {ITask} from "../../../types/types.js";
+import {ITask} from "../../../types/types";
 
 interface IProps {
     loadTasks: (id: string) => void
