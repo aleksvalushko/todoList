@@ -12,10 +12,6 @@ interface IProps {
 
 class TodoListTask extends React.Component<IProps> {
 
-    constructor(props: IProps) {
-        super(props)
-    }
-
     state = {
         editMode: false,
         title: this.props.task.title

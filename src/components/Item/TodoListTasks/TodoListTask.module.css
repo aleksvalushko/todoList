@@ -12,7 +12,6 @@
 }
 .todoListTask input {
   display: flex;
-  justify-content: start;
   align-items: center;
   margin-right: 5%;
 }

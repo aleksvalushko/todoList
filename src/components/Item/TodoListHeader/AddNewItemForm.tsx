@@ -12,10 +12,6 @@ class AddNewItemForm extends React.Component<IProps> {
         title: ''
     };
 
-    constructor(props: IProps) {
-        super(props);
-    }
-
     onInputTextChange = (e: React.FormEvent<HTMLInputElement>) => {
         this.setState({
             error: false,

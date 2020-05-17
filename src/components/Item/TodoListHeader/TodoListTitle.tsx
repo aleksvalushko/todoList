@@ -13,10 +13,6 @@ interface ILocalState {
 
 class TodoListTitle extends React.Component<IProps, ILocalState> {
 
-    constructor(props: IProps) {
-        super(props);
-    }
-
     state = {
         title: this.props.title,
         editMode: false

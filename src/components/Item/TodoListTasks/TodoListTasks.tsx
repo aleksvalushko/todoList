@@ -11,10 +11,6 @@ interface IProps {
 
 class TodoListTasks extends React.Component<IProps> {
 
-    constructor(props: IProps) {
-        super(props)
-    }
-
     render = () => {
 
         let tasksElement = this.props.tasks.map(task =>

@@ -31,10 +31,6 @@ interface ILocalState {
 
 class TodoList extends React.Component<IProps, ILocalState> {
 
-    constructor(props: IProps) {
-        super(props);
-    }
-
     componentDidMount() {
         this.restoreState();
     };
