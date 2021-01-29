@@ -27,20 +27,22 @@ interface IProps {
 interface ILocalState {
     filterValue: string
     nextTaskId: number
+    editMode: boolean
 }
 
 class TodoList extends React.Component<IProps, ILocalState> {
 
     componentDidMount() {
-        this.restoreState();
+        this.setTasks();
     };
 
     state = {
         filterValue: 'All',
-        nextTaskId: 3
+        nextTaskId: 3,
+        editMode: false
     };
 
-    restoreState = () => {
+    setTasks = () => {
         this.props.loadTasks(this.props.id);
     };
 
@@ -82,6 +84,20 @@ class TodoList extends React.Component<IProps, ILocalState> {
         this.props.deleteTodolist(this.props.id);
     };
 
+    activateEditMode = () => {
+        this.setState({
+            editMode: true
+        });
+        alert(true);
+    };
+
+    deactivateEditMode = () => {
+        this.setState({
+            editMode: false
+        });
+        alert(false);
+    };
+
     render = () => {
 
         let {tasks = []} = this.props;
@@ -96,11 +112,13 @@ class TodoList extends React.Component<IProps, ILocalState> {
                         }} className={mod.todoListDeleteButton}><img src={basket} alt="basket"/>
                         </button>
                     </div>
-                    <AddNewItemForm addNewTitle={this.addTask}/>
+                    <div className={mod.todoListInput}>
+                        <AddNewItemForm addNewTitle={this.addTask}/>
+                    </div>
                     <div className={mod.todoListContent}>
                         <TodoListTasks changeIsDoneStatus={this.changeIsDoneStatus}
                                        changeTitle={this.changeTitle}
-                                       /*changeTask={this.changeTask}*/
+                            /*changeTask={this.changeTask}*/
                                        deleteTask={this.deleteTask}
                                        tasks={tasks.filter(t => {
                                            if (this.state.filterValue === 'All') {

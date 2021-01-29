@@ -27,7 +27,3 @@ export interface IISAuth {
     login: string | null
     isAuth: boolean
 }
-
-export interface IForm {
-
-}
